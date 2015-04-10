@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <link rel="apple-touch-icon" sizes="57x57" href="./img/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="./img/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="./img/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="./img/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="./img/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="./img/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="./img/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="./img/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./img/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="./img/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="./img/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./img/favicon/favicon-16x16.png">
+    <link rel="manifest" href="./img/favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="./img/favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <title>inversify</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.6/animate.min.css" type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"><link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+      body{
+        font-family: 'Ubuntu', sans-serif;
+        background-color: #fcfcfc;
+      }
+
+      .custom-header{
+        background-color: #0074c1;
+        padding-top: 40px;
+        padding-bottom: 40px;
+        text-align: center;
+      }
+      .custom-header img{
+        width: 100%;
+      }
+
+      .custom-header h1 {
+        padding-top: 20px;
+        font-size: 60px;
+        color: #ffffff;
+      }
+      .custom-header h2 {
+        font-size: 24px;
+        color: #ffffff;
+      }
+
+      pre {
+        width: 100%;
+        line-height: 1.6;
+        background-color: #fffdae;
+        padding: 1em 1em 1em 1em;
+        margin-right: -1em;
+        overflow-x: auto;
+        font-size: 16px;
+        font-weight: bold;
+        font-family: consolas;
+        border: none;
+        border-radius: 0px;
+        border-left: solid 3px #3C6991;
+      }
+
+      .well{
+        background-color: #ffffff;
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+        border: none;
+        border-radius: 0px;
+        margin-top: -50px;
+        padding: 5%;
+        margin-bottom: 70px;
+      }
+
+      .nav-tabs {
+        border-bottom: none;
+        margin-bottom: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="https://github.com/you"><img style="position: absolute; top: 0; right: 0; border: 0; z-index: 9999;" class="fadeInRight animated" src="https://camo.githubusercontent.com/52760788cde945287fbb584134c4cbc2bc36f904/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f77686974655f6666666666662e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png"></a>
+    <div class="custom-header animated fadeInDown">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3">
+            <img src="./img/logo_inverse.png"/>
+          </div>
+          <div class="col-md-9">
+            <h1>InversifyJS</h1>
+            <h2>A lightweight IoC container written in TypeScript.</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <article class="well animated fadeInUp">
+<div class="pull-right">
+  <iframe src="https://ghbtns.com/github-btn.html?user=twbs&repo=bootstrap&type=star&count=true&size=large" frameborder="0" scrolling="0" width="160px" height="30px"></iframe>
+
+  <iframe src="https://ghbtns.com/github-btn.html?user=twbs&repo=bootstrap&type=fork&count=true&size=large" frameborder="0" scrolling="0" width="158px" height="30px"></iframe>
+</div>
+
+          <h3>About</h3>
+
+          <p>Inversify is a lightweight pico inversion of control (IoC) container
+          for TypeScript and JavaScript apps.</p>
+
+          <p>A pico IoC container uses a class constructor to identify and inject its
+          dependencies. For this to work, the class needs to declare a constructor that
+          includes everything it needs injected.</p>
+
+          <p>In order to resolve a depencency, the pico container needs to be told which
+          implementation type (classes) to associate with each service type (interfaces).</p>
+
+          <h3>
+          <a id="user-content-inversifyjs-is-easy-to-configure" class="anchor" href="#inversifyjs-is-easy-to-configure" aria-hidden="true"><span class="octicon octicon-link"></span></a>InversifyJS is easy to configure</h3>
+
+
+<div role="tabpanel">
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active">
+      <a href="#declare" aria-controls="home" role="tab" data-toggle="tab">
+        1. Declare
+      </a>
+    </li>
+    <li role="presentation">
+      <a href="#bind" aria-controls="profile" role="tab" data-toggle="tab">
+        2. Bind
+      </a>
+    </li>
+    <li role="presentation">
+      <a href="#resolve" aria-controls="messages" role="tab" data-toggle="tab">
+        3. Resolve
+      </a>
+    </li>
+  </ul>
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="declare">
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      <p>
+        We are going to write
+        <a href="http://en.wikipedia.org/wiki/SOLID_%28object-oriented_design%29">SOLID</a>
+        code. We will follow the z
+        <a href="http://en.wikipedia.org/wiki/Dependency_inversion_principle">Dependency inversion principle</a>
+        (“Depend upon Abstractions. Do not depend upon concretions.”) so we will start by declaring some interfaces.
+      </p>
+<pre><code>interface FooInterface {
+  log() : void;
+}
+
+interface BarInterface {
+  log() : void;
+}
+
+interface FooBarInterface {
+  log() : void;
+}
+</code></pre>
+<p>Now we can implement the interfaces. We will start by some classes without dependencies.</p>
+<pre><code>
+class Foo implements FooInterface {
+  public log(){
+    console.log("foo");
+  }
+}
+
+class Bar implements BarInterface {
+  public log(){
+    console.log("bar");
+  }
+}
+</code></pre>
+// A class with two dependencies. Note that the names of arguments in
+// constructor are significant, because the injector uses these to
+// look up the dependencies.
+class FooBar implements FooBarInterface {
+  public foo : FooInterface;
+  public bar : BarInterface;
+  public log(){
+    console.log("foobar");
+  }
+  constructor(FooInterface : FooInterface, BarInterface : BarInterface) {
+    this.foo = FooInterface;
+    this.bar = BarInterface;
+  }
+}
+</code></pre>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="bind">
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+      <p>A type binding (or just a binding) is a mapping between a service type
+      (an interface), and an implementation type to be used to satisfy such a
+      service requirement.</p>
+
+<pre><code>// kernel
+var kernel = new inversify.Kernel();
+
+// bind
+kernel.bind(new inversify.TypeBinding&lt;FooInterface&gt;("FooInterface", Foo));
+kernel.bind(new inversify.TypeBinding&lt;BarInterface&gt;("BarInterface", Bar));
+kernel.bind(new inversify.TypeBinding&lt;FooBarInterface&gt;("FooBarInterface", FooBar));
+</code></pre>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="resolve">
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+<pre><code>var foobar = kernel.resolve&lt;FooBarInterface&gt;("FooBarInterface");
+
+// Foo and bar instances has been injected to foobar via its constructor
+foobar.foo.log(); // foo
+foobar.bar.log(); // foo
+foobar.log(); // foobar
+</code></pre>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+          <h3>
+          <a id="user-content-compatible-with-javascript" class="anchor" href="#compatible-with-javascript" aria-hidden="true"><span class="octicon octicon-link"></span></a>Compatible with JavaScript</h3>
+
+          <p>todo</p>
+
+          <h5>
+          <a id="user-content-1-declare-your-classes" class="anchor" href="#1-declare-your-classes" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. Declare your classes</h5>
+
+          <p>todo</p>
+
+<pre><code>var Foo = (function () {
+    function Foo() {
+    }
+    Foo.prototype.log = function () {
+        console.log("foo");
+    };
+    return Foo;
+})();
+
+var Bar = (function () {
+    function Bar() {
+    }
+    Bar.prototype.log = function () {
+        console.log("bar");
+    };
+    return Bar;
+})();
+
+var FooBar = (function () {
+    function FooBar(FooInterface, BarInterface) {
+        this.foo = FooInterface;
+        this.bar = BarInterface;
+    }
+    FooBar.prototype.log = function () {
+        console.log("foobar");
+    };
+    return FooBar;
+})();
+</code></pre>
+
+          <h5>
+          <a id="user-content-2-create-a-kernel-and-set-up-your-apps-type-bindings-1" class="anchor" href="#2-create-a-kernel-and-set-up-your-apps-type-bindings-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. Create a kernel and set up your app's type bindings</h5>
+
+          <p>todo</p>
+
+          <p>A type binding (or just a binding) is a mapping between a service type
+          (an interface), and an implementation type to be used to satisfy such a
+          service requirement.</p>
+
+          <p>todo</p>
+
+<pre><code>// kernel
+var kernel = new inversify.Kernel();
+
+// bind
+kernel.bind(new inversify.TypeBinding("FooInterface", Foo));
+kernel.bind(new inversify.TypeBinding("BarInterface", Bar));
+kernel.bind(new inversify.TypeBinding("FooBarInterface", FooBar));
+</code></pre>
+
+          <h5>
+          <a id="user-content-3-resolve-dependencies-1" class="anchor" href="#3-resolve-dependencies-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>3. Resolve dependencies</h5>
+
+          <p>todo</p>
+
+<pre><code>// resolve
+var foobar = kernel.resolve("FooBarInterface");
+
+// Foo and bar instances has been injected to foobar via its constructor
+foobar.foo.log(); // foo
+foobar.bar.log(); // foo
+foobar.log(); // foobar
+</code></pre>
+
+          <h3>
+          <a id="user-content-easy-to-integrate-with-frameworks" class="anchor" href="#easy-to-integrate-with-frameworks" aria-hidden="true"><span class="octicon octicon-link"></span></a>Easy to integrate with frameworks</h3>
+
+          <p>todo</p>
+
+          <h3>
+          <a id="user-content-easy-to-integrate-with-module-loaders" class="anchor" href="#easy-to-integrate-with-module-loaders" aria-hidden="true"><span class="octicon octicon-link"></span></a>Easy to integrate with module loaders</h3>
+
+          <p>todo</p>
+
+          <h3>License</h3>
+          <p>License under the MIT License (MIT)</p>
+          <p>Copyright &copy; 2015 <a href="http://www.remojansen.com">Remo H. Jansen</a></p>
+          <p>Permission is hereby granted, free of charge, to any person obtaining a copy
+          of this software and associated documentation files (the "Software"), to deal
+          in the Software without restriction, including without limitation the rights
+          to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+          copies of the Software, and to permit persons to whom the Software is
+          furnished to do so, subject to the following conditions:</p>
+          <p>The above copyright notice and this permission notice shall be included in
+          all copies or substantial portions of the Software.</p>
+          <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+          IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+          FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE
+          AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+          LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+          OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+          THE SOFTWARE.</p>
+          </article>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  </body>
+</html>

@@ -44,7 +44,12 @@ pre {
   font-family: consolas;
   border: none;
   border-radius: 0px;
-  border-left: solid 3px #3C6991;
+  border-left: solid 3px #0074c1;
+}
+
+.btn-primary {
+  background-color: #0074c1;
+  border-color: #0074c1;
 }
 
 .well{

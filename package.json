@@ -1,0 +1,38 @@
+{
+  "name": "inversify.io",
+  "version": "1.0.0",
+  "description": "InversifyJS official website",
+  "main": "index.html",
+  "scripts": {
+    "test": "none"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/inversify/inversify.github.io.git"
+  },
+  "keywords": [
+    "IoC",
+    "inversify",
+    "inversion",
+    "control",
+    "typescript",
+    "javascript",
+    "dependency",
+    "injection"
+  ],
+  "author": "remojansen <remo.jansen@wolksoftware.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/inversify/inversify.github.io/issues"
+  },
+  "homepage": "inversify.io",
+  "devDependencies": {
+    "browser-sync": "^2.2.2",
+    "gulp": "^3.8.11",
+    "run-sequence": "^1.0.2"
+  },
+  "peerDependencies": {
+    "gulp": "^3.8.11",
+    "browser-sync": "^2.2.2"
+  }
+}

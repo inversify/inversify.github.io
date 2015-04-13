@@ -1,5 +1,5 @@
 {
-  "name": "inversify.github.io",
+  "name": "inversify.io",
   "version": "0.0.0",
   "homepage": "inversify.io",
   "authors": [
@@ -10,11 +10,11 @@
     "IoC",
     "inversify",
     "inversion",
-    "of",
     "control",
     "typescript",
     "javascript",
-    "dependencies"
+    "dependency",
+    "injection"
   ],
   "license": "MIT",
   "private": true,

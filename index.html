@@ -95,8 +95,8 @@
                 <p>
                   JavaScript applications are becoming larger and larger day
                   after day. As a result we are using a lot of our architecture
-                  exprience from languages like Java or C# in JavaScript.
-                  We are embracing OOP with JavaScript but we are not writting
+                  experience from languages like Java or C# in JavaScript.
+                  We are embracing OOP with JavaScript but we are not writing
                   <a href="http://en.wikipedia.org/wiki/SOLID_%28object-oriented_design%29">SOLID</a>
                   JavaScript. InversifyJS has been designed to allow JavaScript
                   developers to write code that adheres to the SOLID principles.
@@ -112,10 +112,10 @@
                   the SOLID principles.
                 </p>
                 <p>
-                  2. Facilitate and encourage the adherance to the best OOP
+                  2. Facilitate and encourage the adherence to the best OOP
                   and IoC practices.
                 <p>
-                <p>3. Add as litle runtime overhead as possible.</p>
+                <p>3. Add as little runtime overhead as possible.</p>
               </div>
             </div>
             <h3>Installation</h3>
@@ -145,7 +145,7 @@
               The main goal of InversifyJS is top allow JavaScript developers to
               write code that adheres to the SOLID principles. Many of these
               principles refer to the usage of interfaces. The main reason why
-              it is not possible to write native SOLID JavaScript is becase the
+              it is not possible to write native SOLID JavaScript is because the
               language lacks interfaces. In the other hand, TypeScript features
               interfaces, so, <b>if you are going to use InversifyJS it is
               recommended to work with TypeScript to get the most out of it</b>.
@@ -249,10 +249,10 @@ class Bar implements BarInterface {
 var kernel = new inversify.Kernel();
 </code></pre>
                   <p>
-                    In order to resolve a depencency, the kernel needs to be
+                    In order to resolve a dependency, the kernel needs to be
                     told which implementation type (classes) to associate
                     with each service type (interfaces). We will use type
-                    bindigns for this purpose. A type binding (or just a
+                    bindings for this purpose. A type binding (or just a
                     binding) is a <b>mapping between a service type (an
                     interface), and an implementation type (class)</b>.
                   </p>
@@ -279,14 +279,14 @@ kernel.bind(new inversify.TypeBinding&lt;FooInterface&gt;("FooInterface", Bar));
                 </div>
                 <div role="tabpanel" class="tab-pane" id="tsresolve">
                   <p>
-                    After declaring the type bindigns, we can invoke the kernel
+                    After declaring the type bindings, we can invoke the kernel
                     resolve method to resolve a dependency. We will <b>use a string
                     as the interface identifier</b> (instead of the interface itself)
                     because the TypeScript interfaces are not available at runtime.
                   </p>
 <pre><code>var foobar = kernel.resolve&lt;FooBarInterface&gt;("FooBarInterface");</code></pre>
 </p>
-  If the interface that we are tyring to resolve is bind to a
+  If the interface that we are trying to resolve is bind to a
   class that has some dependencies, InversifyJS will resolve and
   inject them into a new instance via the class constructor.
 </p>
@@ -301,9 +301,9 @@ foobar.log();     // foobar
                     <b>is the only place where we should invoke the resolve method</b>.
                   </p>
                   <p>
-                    Invoking resolve everytime we need to inject something, as if it was a
+                    Invoking resolve every time we need to inject something, as if it was a
                     <a href="http://en.wikipedia.org/wiki/Service_locator_pattern">Service Locator</a>
-                    is an anti-pattern. If we are working with an MVC framweork
+                    is an anti-pattern. If we are working with an MVC framework
                     the composition root should be located in the application class,
                     somewhere along the routing logic or in a controller factory class. Please refer to the
                     <a href="#easy_integration">integration examples</a> if you need additional help.
@@ -318,9 +318,9 @@ foobar.log();     // foobar
             <h3>The Basics (with JavaScript)</h3>
             <p>
               InversifyJS is fully compatible with JavaScript, but, since the JavaScript
-              programming language lacks intefaces, we will miss its TypeScript-exclusive features.
+              programming language lacks interfaces, we will miss its TypeScript-exclusive features.
               Please take a look to the <a href="#typescript_basics">TypeScript section above</a>.
-              If you want to learn more about the advantages of workign with TypeScript.
+              If you want to learn more about the advantages of working with TypeScript.
             </p>
             <!-- JS TABS-->
             <div role="tabpanel">
@@ -350,7 +350,7 @@ foobar.log();     // foobar
                     Do not depend upon concretions." so we should start by declaring some interfaces (abstractions)
                     and continue declaring some classes which implement them (concretions). In TypeScript
                     we can define interfaces but JavaScript lacks them. One of the main design goals of
-                    inversifyJS is too add as litle runtime overhead as possible so <b>we will not try
+                    inversifyJS is too add as little runtime overhead as possible so <b>we will not try
                     to emulate interfaces or reflection with JavaScript</b>.
                   </p>
                   <p>
@@ -413,10 +413,10 @@ foobar.log();     // foobar
 var kernel = new inversify.Kernel();
 </code></pre>
                 <p>
-                  In order to resolve a depencency, the kernel needs to be
+                  In order to resolve a dependency, the kernel needs to be
                   told which implementation type (classes) to associate
                   with each service type (interfaces). We will use type
-                  bindigns for this purpose. A type binding (or just a
+                  bindigns for this purpose. A type bindings (or just a
                   binding) is a <b>mapping between a service type (an
                   interface), and an implementation type (class)</b>.
                 </p>
@@ -439,14 +439,14 @@ kernel.bind(new inversify.TypeBinding("FooBarInterface", FooBar));
                 </div>
                 <div role="tabpanel" class="tab-pane" id="messages">
                   <p>
-                    After declaring the type bindigns, we can invoke the kernel resolve
+                    After declaring the type bindings, we can invoke the kernel resolve
                     method to resolve a dependency. We will use a string as the interface
                     identifier as we have already discussed when we defined the type bindings.
                   </p>
 <pre><code>// resolve
 var foobar = kernel.resolve("FooBarInterface");</code></pre>
 </p>
-  If the interface that we are tyring to resolve is bind to a
+  If the interface that we are trying to resolve is bind to a
   class that has some dependencies, InversifyJS will resolve and
   inject them into a new instance via the class constructor.
 </p>
@@ -461,9 +461,9 @@ foobar.log();     // foobar
                     <b>is the only component where we should invoke the resolve method</b>.
                   </p>
                   <p>
-                    Invoking resolve everytime we need to inject something, as if it was a
+                    Invoking resolve every time we need to inject something, as if it was a
                     <a href="http://en.wikipedia.org/wiki/Service_locator_pattern">Service Locator</a>
-                    is an anti-pattern. If we are working with an MVC framweork
+                    is an anti-pattern. If we are working with an MVC framework
                     the composition root should be located in the application class,
                     somewhere along the routing logic or in a controller factory class. Please refer to the
                     <a href="#easy_integration">integration examples</a> if you need additional help.
@@ -475,7 +475,7 @@ foobar.log();     // foobar
             <p>
               InversifyJS was designed with many popular JavaScript frameworks in mind.
               As a result, it is really easy to integrate with existing JavaScript
-              frameworks and examples of integration withmany popular frameworks are available
+              frameworks and examples of integration with many popular frameworks are available
               in the
               <a href="https://github.com/inversify/Inversify-code-samples">official repository</a>.
             </p>
@@ -567,9 +567,9 @@ foobar.log();     // foobar
                     is the only component where we should invoke the resolve method.
                   </p>
                   <p>
-                    Invoking resolve everytime we need to inject something, as if it was a
+                    Invoking resolve every time we need to inject something, as if it was a
                     <a href="http://en.wikipedia.org/wiki/Service_locator_pattern">Service Locator</a>
-                    is an anti-pattern. If we are working with an MVC framweork
+                    is an anti-pattern. If we are working with an MVC framework 
                     the composition root should be located in the application class,
                     somewhere along the routing logic or in a controller factory class.
                   </p>
@@ -614,13 +614,24 @@ foobar.log();     // foobar
               <li>
                   <h4>Avoid implementation-specific interface types</h4>
                   <p>
-                    Another common error is implementation-specific interface types done just to be able to register it in the container. This is in and of itself a violation of the <a href="http://en.wikipedia.org/wiki/Dependency_inversion_principle">Dependency Inversion Principle</a> (just because it's an interface, does not mean it's truly abstract) and often also includes <a href="http://en.wikipedia.org/wiki/Interface_bloat">interface bloat</a> which violates the <a href="http://en.wikipedia.org/wiki/Interface_segregation_principle">Interface Segregation Principle</a>.
-                    </p>
+                    Another common error is implementation-specific interface types done just to be able 
+                    to register it in the container. This is in and of itself a violation of the 
+                    <a href="http://en.wikipedia.org/wiki/Dependency_inversion_principle">Dependency Inversion Principle</a>
+                    (just because it's an interface, does not mean it's truly abstract) and often also includes 
+                    <a href="http://en.wikipedia.org/wiki/Interface_bloat">interface bloat</a> which violates the 
+                    <a href="http://en.wikipedia.org/wiki/Interface_segregation_principle">Interface Segregation Principle</a>.
+                  </p>
               </li>
               <li>
                   <h4>Avoid optional dependencies</h4>
                   <p>
-                    In other words, there is a constructor that accepts dependency injection, but also <em>another</em> constructor that uses a "default" implementation. This also violates the DIP and tends to lead to <a href="http://en.wikipedia.org/wiki/Liskov_substitution_principle">LSP</a> violations as well, as developers, over time, start making assumptions around the default implementation, and/or start new-ing up instances using the default constructor.
+                    In other words, there is a constructor that accepts dependency injection, but 
+                    also <em>another</em> constructor that uses a "default" implementation. 
+                    This also violates the DIP and tends to lead to 
+                    <a href="http://en.wikipedia.org/wiki/Liskov_substitution_principle">LSP</a> 
+                    violations as well, as developers, over time, start making assumptions around 
+                    the default implementation, and/or start new-ing up instances using the default 
+                    constructor.
                   </p>
               </li>
             </ul>

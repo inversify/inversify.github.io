@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -60,7 +60,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <img src="./img/logo_inverse.png"/>
+            <img src="./img/logo_transparent.svg"/>
             <h1>InversifyJS</h1>
             <h2>A lightweight (4KB) IoC container written in TypeScript.</h2>
             <iframe src="https://ghbtns.com/github-btn.html?user=inversify&repo=InversifyJS&type=star&count=false&size=large" frameborder="0" scrolling="0" width="76px" height="30px"></iframe>
@@ -126,9 +126,9 @@
             <pre><code>bower install inversify --save</code></pre>
             <h3>Status</h3>
             <p>
-             If there are any broken builds a note will be posted here. 
-             If you are experiencing problems please email let us know in 
-             <a href="https://github.com/inversify/InversifyJS/issues">issues</a> or 
+             If there are any broken builds a note will be posted here.
+             If you are experiencing problems please email let us know in
+             <a href="https://github.com/inversify/InversifyJS/issues">issues</a> or
              <a href="https://gitter.im/inversify/InversifyJS">chat</a>.
             </p>
             <p>
@@ -569,7 +569,7 @@ foobar.log();     // foobar
                   <p>
                     Invoking resolve every time we need to inject something, as if it was a
                     <a href="http://en.wikipedia.org/wiki/Service_locator_pattern">Service Locator</a>
-                    is an anti-pattern. If we are working with an MVC framework 
+                    is an anti-pattern. If we are working with an MVC framework
                     the composition root should be located in the application class,
                     somewhere along the routing logic or in a controller factory class.
                   </p>
@@ -613,23 +613,23 @@ foobar.log();     // foobar
               <li>
                   <h4>Avoid implementation-specific interface types</h4>
                   <p>
-                    Another common error is implementation-specific interface types done just to be able 
-                    to register it in the container. This is in and of itself a violation of the 
+                    Another common error is implementation-specific interface types done just to be able
+                    to register it in the container. This is in and of itself a violation of the
                     <a href="http://en.wikipedia.org/wiki/Dependency_inversion_principle">Dependency Inversion Principle</a>
-                    (just because it's an interface, does not mean it's truly abstract) and often also includes 
-                    <a href="http://en.wikipedia.org/wiki/Interface_bloat">interface bloat</a> which violates the 
+                    (just because it's an interface, does not mean it's truly abstract) and often also includes
+                    <a href="http://en.wikipedia.org/wiki/Interface_bloat">interface bloat</a> which violates the
                     <a href="http://en.wikipedia.org/wiki/Interface_segregation_principle">Interface Segregation Principle</a>.
                   </p>
               </li>
               <li>
                   <h4>Avoid optional dependencies</h4>
                   <p>
-                    In other words, there is a constructor that accepts dependency injection, but 
-                    also <em>another</em> constructor that uses a "default" implementation. 
-                    This also violates the DIP and tends to lead to 
-                    <a href="http://en.wikipedia.org/wiki/Liskov_substitution_principle">LSP</a> 
-                    violations as well, as developers, over time, start making assumptions around 
-                    the default implementation, and/or start new-ing up instances using the default 
+                    In other words, there is a constructor that accepts dependency injection, but
+                    also <em>another</em> constructor that uses a "default" implementation.
+                    This also violates the DIP and tends to lead to
+                    <a href="http://en.wikipedia.org/wiki/Liskov_substitution_principle">LSP</a>
+                    violations as well, as developers, over time, start making assumptions around
+                    the default implementation, and/or start new-ing up instances using the default
                     constructor.
                   </p>
               </li>

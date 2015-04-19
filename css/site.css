@@ -134,3 +134,9 @@ pre {
   margin-top: 30px;
   height: 100px;
 }
+
+.ribbon {
+  position: absolute;
+  left: 6px;
+  top: -31px;
+}

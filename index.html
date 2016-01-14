@@ -252,9 +252,9 @@ class FooBar implements FooBarInterface {
                     dependencies by examining the metadata provided by the 
                     Inject decorator.
                   </p>
-<pre><code>import { TypeBinding, Kernel } from "inversify";
+<pre><code>import { TypeBinding, Kernel, TypeBindingScopeEnum } from "inversify";
 
-var kernel = new inversify.Kernel();
+var kernel = new Kernel();
 </code></pre>
                   <p>
                     In order to resolve a dependency, the kernel needs to be
@@ -265,9 +265,9 @@ var kernel = new inversify.Kernel();
                     interface), and an implementation type (class)</b>.
                   </p>
 <pre><code>// bind
-kernel.bind(new inversify.TypeBinding&lt;FooInterface&gt;("FooInterface", Foo));
-kernel.bind(new inversify.TypeBinding&lt;BarInterface&gt;("BarInterface", Bar));
-kernel.bind(new inversify.TypeBinding&lt;FooBarInterface&gt;("FooBarInterface", FooBar));
+kernel.bind(new TypeBinding&lt;FooInterface&gt;("FooInterface", Foo, TypeBindingScopeEnum.Transient));
+kernel.bind(new TypeBinding&lt;BarInterface&gt;("BarInterface", Bar, TypeBindingScopeEnum.Singleton));
+kernel.bind(new TypeBinding&lt;FooBarInterface&gt;("FooBarInterface", FooBar));
 </code></pre>
                   <p>
                     When we declare a type binding, <b>the TypeScript compiler will
@@ -276,7 +276,7 @@ kernel.bind(new inversify.TypeBinding&lt;FooBarInterface&gt;("FooBarInterface", 
                     a compilation error if that is not the case.
                   </p>
 <pre><code>// Compilation error: Bar does not implement FooInterface
-kernel.bind(new inversify.TypeBinding&lt;FooInterface&gt;("FooInterface", Bar));
+kernel.bind(new TypeBinding&lt;FooInterface&gt;("FooInterface", Bar));
 </code></pre>
 </code></pre>
                   <p>

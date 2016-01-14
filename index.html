@@ -252,8 +252,7 @@ class FooBar implements FooBarInterface {
                     dependencies by examining the metadata provided by the 
                     Inject decorator.
                   </p>
-<pre><code>
-import { TypeBinding, Kernel } from "inversify";
+<pre><code>import { TypeBinding, Kernel } from "inversify";
 
 var kernel = new inversify.Kernel();
 </code></pre>
@@ -391,10 +390,9 @@ foobar.log();     // foobar
                   </div>
                   <p>
                     Now we are going to declare a class named FooBar, which has
-                    two dependencies (FooInterface &amp; BarInterface). Note
-                    that <b>the names of the arguments in its constructor are
-                    significant</b> because the injector uses these to look up the
-                    dependencies.
+                    two dependencies (FooInterface &amp; BarInterface). Note that the 
+                    names of the arguments in the Inject decorator are significant 
+                    because the injector uses these to look up the dependencies.
                   </p>
 <pre><code>var FooBar = (function () {
   function FooBar(FooInterface, BarInterface) {
@@ -404,19 +402,18 @@ foobar.log();     // foobar
   FooBar.prototype.log = function () {
     console.log("foobar");
   };
-  return FooBar;
+  return Inject("FooInterface", "BarInterface")(FooBar);
 })();
+
 </code></pre>
                 </div>
                 <div role="tabpanel" class="tab-pane" id="profile">
                   <p>
                     Before we can start resolving and injecting dependencies we
                     need to create an instance of the InversifyJS Kernel class.
-                    The Kernel will automatically detect is a class has some
-                    dependencies by examining its constructor. Note that <b>the
-                    names of the arguments in the class constructor are
-                    significant</b> because the injector uses these to look
-                    up the dependencies.
+                    The Kernel will automatically detect if a class has some 
+                    dependencies by examining the metadata provided by the 
+                    Inject decorator.
                   </p>
 <pre><code>// kernel
 var kernel = new inversify.Kernel();

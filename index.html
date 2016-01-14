@@ -433,8 +433,8 @@ var kernel = new inversify.Kernel();
                   it is recommended to use TypeScript.
                 </p>
 <pre><code>// bind
-kernel.bind(new inversify.TypeBinding("FooInterface", Foo));
-kernel.bind(new inversify.TypeBinding("BarInterface", Bar));
+kernel.bind(new inversify.TypeBinding("FooInterface", Foo, TypeBindingScopeEnum.Transient));
+kernel.bind(new inversify.TypeBinding("BarInterface", Bar, TypeBindingScopeEnum.Singleton));
 kernel.bind(new inversify.TypeBinding("FooBarInterface", FooBar));
 </code></pre>
                   <p>

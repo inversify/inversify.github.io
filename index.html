@@ -228,15 +228,18 @@ class Bar implements BarInterface {
             names of the arguments in its constructor are significant</b>
             because the injector uses these to look up the dependencies.
           </p>
-<pre><code>class FooBar implements FooBarInterface {
+<pre><code>import { Inject } from "inversify";
+
+@Inject("FooInterface", "BarInterface")
+class FooBar implements FooBarInterface {
   public foo : FooInterface;
   public bar : BarInterface;
   public log(){
     console.log("foobar");
   }
-  constructor(FooInterface : FooInterface, BarInterface : BarInterface) {
-    this.foo = FooInterface;
-    this.bar = BarInterface;
+  constructor(foo : FooInterface, bar : BarInterface) {
+    this.foo = foo;
+    this.bar = bar;
   }
 }
 </code></pre>
@@ -251,7 +254,9 @@ class Bar implements BarInterface {
                     are significant</b> because the injector uses these to look
                     up the dependencies.
                   </p>
-<pre><code>// kernel
+<pre><code>
+import { TypeBinding, Kernel } from "inversify";
+
 var kernel = new inversify.Kernel();
 </code></pre>
                   <p>

@@ -125,6 +125,16 @@
             <pre><code>npm install inversify --save</code></pre>
             <pre><code>bower install inversify --save</code></pre>
             <pre><code>tsd install inversify --save</code></pre>
+            <p>
+              <b>Note</b>: We have decided to <a></a>drop support for bower](https://twitter.com/nachocoloma/status/663622545162280960) 
+              and tsd. The InversifyJS type definitions are included in the npm package as it is 
+              <a href="https://github.com/Microsoft/TypeScript/wiki/Typings-for-npm-packages" target="_blank">recommended by the TypeScript development team</a>.
+            </p>
+            <p>
+              If you are planing to use inversify as a global you will need to add a reference to the file 
+              named inversify-global.d.ts this file is included in the npm package:
+            </p>
+            <pre><code>/// &lt;reference path="./node_modules/inversify/type_definitions/inversify-global.d.ts" /&gt;</code></pre>
             <h3>Status</h3>
             <p>
              If there are any broken builds a note will be posted here.

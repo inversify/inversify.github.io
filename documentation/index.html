@@ -1,0 +1,346 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>InversifyJS</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+	<script src="assets/js/modernizr.js"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">InversifyJS</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1> InversifyJS</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<h1 id="inversifyjs">InversifyJS</h1>
+				<p><a href="https://gitter.im/inversify/InversifyJS?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge&amp;utm_content=badge"><img src="https://badges.gitter.im/Join%20Chat.svg" alt="Join the chat at https://gitter.im/inversify/InversifyJS"></a>
+					<a href="https://travis-ci.org/inversify/InversifyJS"><img src="https://secure.travis-ci.org/inversify/InversifyJS.svg?branch=master" alt="Build Status"></a>
+					<a href="https://coveralls.io/r/inversify/InversifyJS?branch=master"><img src="https://coveralls.io/repos/inversify/InversifyJS/badge.svg?branch=master" alt="Coverage Status"></a>
+					<a href="http://badge.fury.io/js/inversify"><img src="https://badge.fury.io/js/inversify.svg" alt="npm version"></a>
+					<a href="https://david-dm.org/inversify/InversifyJS#info=dependencies"><img src="https://david-dm.org/inversify/InversifyJS.svg" alt="Dependencies"></a>
+					<a href="https://david-dm.org/inversify/InversifyJS/#info=devDependencies"><img src="https://david-dm.org/inversify/InversifyJS/dev-status.svg" alt="img"></a>
+				<a href="https://david-dm.org/inversify/InversifyJS/#info=peerDependenciess"><img src="https://david-dm.org/inversify/InversifyJS/peer-status.svg" alt="img"></a></p>
+				<p><img src="https://raw.githubusercontent.com/inversify/inversify.github.io/master/img/logo.png" width="500"  /></p>
+				<p>A lightweight IoC container written in TypeScript.
+				Visit <a href="http://inversify.io/">http://inversify.io/</a> for more information.</p>
+				<h3 id="about">About</h3>
+				<p>InversifyJS is a lightweight (4KB) pico inversion of control (IoC) container for TypeScript and JavaScript apps. A pico IoC container uses a class constructor to identify and inject its dependencies.</p>
+				<p>InversifyJS is easy to integrate with the majority of existing JavaScript frameworks and encourage the usage of the best OOP and IoC practices.</p>
+				<h3 id="motivation">Motivation</h3>
+				<p>JavaScript applications are becoming larger and larger day after day. As a result we are using a lot of our architecture experience from languages like Java or C# in JavaScript. We are embracing OOP with JavaScript but we are not writing SOLID JavaScript. InversifyJS has been designed to allow JavaScript developers to write code that adheres to the SOLID principles.</p>
+				<h3 id="philosophy">Philosophy</h3>
+				<p>InversifyJS has been developed with 3 main goals:</p>
+				<ol>
+					<li><p>Allow JavaScript developers to write code that adheres to the SOLID principles.</p>
+					</li>
+					<li><p>Facilitate and encourage the adherence to the best OOP and IoC practices.</p>
+					</li>
+					<li><p>Add as little runtime overhead as possible.</p>
+					</li>
+				</ol>
+				<h1 id="installation">Installation</h1>
+				<p>You can get the latest release and the type definitions using npm.</p>
+				<pre><code>npm <span class="hljs-operator"><span class="hljs-keyword">install</span> inversify <span class="hljs-comment">--save</span></span>
+</code></pre><p><strong>Note</strong>: We have decided to <a href="https://twitter.com/nachocoloma/status/663622545162280960">drop support for bower</a> and tsd. The InversifyJS type definitions are included in the npm package as it is <a href="https://github.com/Microsoft/TypeScript/wiki/Typings-for-npm-packages">recommended by the TypeScript development team</a>.</p>
+				<p>If you are planing to use inversify as a global you will need to add a reference to the file named <code>inversify-global.d.ts</code> this file is included in the npm package:</p>
+				<pre><code>/// <span class="hljs-tag">&lt;<span class="hljs-title">reference</span> <span class="hljs-attribute">path</span>=<span class="hljs-value">"./node_modules/inversify/type_definitions/inversify-global.d.ts"</span> /&gt;</span>
+</code></pre><h1 id="the-basics-with-typescript-">The Basics (with TypeScript)</h1>
+				<p>The main goal of InversifyJS is top allow JavaScript developers to write code that adheres to the SOLID principles. Many of these principles refer to the usage of interfaces. The main reason why it is not possible to write native SOLID JavaScript is because the language lacks interfaces. In the other hand, TypeScript features interfaces, so, if you are going to use InversifyJS it is recommended to work with TypeScript to get the most out of it.</p>
+				<h4 id="1-declare-interfaces-implementations">1. Declare interfaces &amp; implementations</h4>
+				<p>Our goal is to write SOLID code. This means that we should &quot;depend upon Abstractions. Do not depend upon concretions.&quot; so we will start by declaring some interfaces (abstractions).</p>
+				<pre><code><span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">FooInterface</span> </span>{
+  log() : <span class="hljs-keyword">void</span>;
+}
+
+<span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">BarInterface</span> </span>{
+  log() : <span class="hljs-keyword">void</span>;
+}
+
+<span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">FooBarInterface</span> </span>{
+  log() : <span class="hljs-keyword">void</span>;
+}
+</code></pre><p>We can continue declaring some classes which implement them (concretions). We will start by declaring two classes (Foo &amp; Bar) which don&#39;t have any dependencies.</p>
+				<pre><code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">FooInterface</span> {</span>
+  <span class="hljs-keyword">public</span> <span class="hljs-built_in">log</span>(){
+    console.<span class="hljs-built_in">log</span>(<span class="hljs-string">"foo"</span>);
+  }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Bar</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">BarInterface</span> {</span>
+  <span class="hljs-keyword">public</span> <span class="hljs-built_in">log</span>(){
+    console.<span class="hljs-built_in">log</span>(<span class="hljs-string">"bar"</span>);
+  }
+}
+</code></pre><p>Now we are going to declare a class named FooBar, which has two dependencies (FooInterface &amp; BarInterface). Note that the names of the arguments in the Inject decorator are significant because the injector uses these to look up the dependencies.</p>
+				<pre><code><span class="hljs-keyword">import</span> { Inject } from <span class="hljs-string">"inversify"</span>;
+
+@Inject(<span class="hljs-string">"FooInterface"</span>, <span class="hljs-string">"BarInterface"</span>)
+<span class="hljs-keyword">class</span> FooBar <span class="hljs-keyword">implements</span> FooBarInterface {
+  <span class="hljs-keyword">public</span> foo : FooInterface;
+  <span class="hljs-keyword">public</span> bar : BarInterface;
+  <span class="hljs-keyword">public</span> log(){
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"foobar"</span>);
+  }
+  <span class="hljs-constructor"><span class="hljs-keyword">constructor</span>(foo : FooInterface, bar : BarInterface) </span>{
+    <span class="hljs-keyword">this</span>.foo = foo;
+    <span class="hljs-keyword">this</span>.bar = bar;
+  }
+}
+</code></pre><h4 id="2-bind-interfaces-to-implementations">2. Bind interfaces to implementations</h4>
+				<p>Before we can start resolving and injecting dependencies we need to create an instance of the InversifyJS Kernel class. The Kernel will automatically detect is a class has some dependencies by examining its constructor. The Kernel will automatically detect if a class has some dependencies by examining the metadata provided by the Inject decorator.</p>
+				<pre><code><span class="hljs-keyword">import</span> { Binding, BindingScope, Kernel } <span class="hljs-keyword">from</span> <span class="hljs-string">"inversify"</span>;
+<span class="hljs-keyword">var</span> kernel = <span class="hljs-keyword">new</span> Kernel();
+</code></pre><p>In order to resolve a dependency, the kernel needs to be told which implementation type (classes) to associate with each service type (interfaces). We will use type bindings for this purpose. A type binding (or just a binding) is a mapping between a service type (an interface), and an implementation type (class).</p>
+				<pre><code>kernel.bind(<span class="hljs-keyword">new</span> Binding&lt;FooInterface&gt;(<span class="hljs-string">"FooInterface"</span>, Foo, BindingScope.<span class="hljs-keyword">Transient</span>));
+kernel.bind(<span class="hljs-keyword">new</span> Binding&lt;BarInterface&gt;(<span class="hljs-string">"BarInterface"</span>, Bar, BindingScope.Singleton));
+kernel.bind(<span class="hljs-keyword">new</span> Binding&lt;FooBarInterface&gt;(<span class="hljs-string">"FooBarInterface"</span>, FooBar));
+</code></pre><p>When we declare a type binding, the TypeScript compiler will check that the implementation type (class) is actually and implementation of the service type (interface) and throw a compilation error if that is not the case.</p>
+				<pre><code>// Compilation <span class="hljs-built_in">error</span>: Bar does <span class="hljs-keyword">not</span> implement FooInterface
+kernel.bind(<span class="hljs-keyword">new</span> Binding&lt;FooInterface&gt;(<span class="hljs-string">"FooInterface"</span>, Bar));
+</code></pre><p>We should keep the InversifyJS Kernel instantiation and type bindings centralized in one unique IoC configuration file. This will help us to abstract our application from the IoC configuration.</p>
+				<h4 id="3-resolve-inject-dependencies">3. Resolve &amp; inject dependencies</h4>
+				<p>After declaring the type bindings, we can invoke the kernel resolve method to resolve a dependency. We will use a string as the interface identifier (instead of the interface itself) because the TypeScript interfaces are not available at runtime.</p>
+				<pre><code><span class="hljs-variable"><span class="hljs-keyword">var</span> foobar</span> = kernel.resolve<span class="hljs-type">&lt;FooBarInterface&gt;</span>(<span class="hljs-string">"FooBarInterface"</span>);
+</code></pre><p>If the interface that we are trying to resolve is bind to a class that has some dependencies, InversifyJS will resolve and inject them into a new instance via the class constructor.</p>
+				<pre><code>// Foo<span class="hljs-instruction"> and </span>Bar instances has been injected into a<span class="hljs-instruction"> new </span>Foobar<span class="hljs-instruction"> instance </span>via its<span class="hljs-keyword"> constructor</span>
+foobar.foo.log(<span class="hljs-function">)</span>; // foo
+foobar.bar.log(<span class="hljs-function">)</span>; // bar
+foobar.log(<span class="hljs-function">)</span>;     // foobar
+</code></pre><p>Our application dependency tree should have one unique root element, known as the application composition root, which is the only place where we should invoke the resolve method.</p>
+				<p>Invoking resolve every time we need to inject something, as if it was a Service Locator is an anti-pattern. If we are working with an MVC framework the composition root should be located in the application class, somewhere along the routing logic or in a controller factory class. Please refer to the integration examples if you need additional help.</p>
+				<h1 id="integration-with-popular-frameworks">Integration with popular frameworks</h1>
+				<p>InversifyJS was designed with many popular JavaScript frameworks in mind. As a result, it is really easy to integrate with existing JavaScript frameworks and examples of integration with many popular frameworks are available in the <a href="https://github.com/inversify/Inversify-code-samples">official examples repository</a>.</p>
+				<h1 id="good-practices">Good Practices</h1>
+				<p>Dependency Inversion (DI) isn&#39;t rocket science. We just need to try to avoid new and singleton except when there&#39;s a compelling reason to use them, such as a utility method that has no external dependencies, or a utility class that could not possibly have any purpose outside the framework (interop wrappers and dictionary keys are common examples of this).</p>
+				<p>Many of the problems with IoC frameworks come up when developers are first learning how to use them, and instead of actually changing the way they handle dependencies and abstractions to fit the IoC model, instead try to manipulate the IoC container to meet the expectations of their old coding style, which would often involve high coupling and low cohesion.</p>
+				<h4 id="use-a-composition-root-to-avoid-the-service-locator-anti-pattern">Use a Composition Root to avoid the Service Locator anti-pattern</h4>
+				<p>Our application dependency tree should have one unique root element (known as the application composition root) which is the only component where we should invoke the resolve method.</p>
+				<p>Invoking resolve every time we need to inject something, as if it was a Service Locator is an anti-pattern. If we are working with an MVC framework the composition root should be located in the application class, somewhere along the routing logic or in a controller factory class.</p>
+				<h4 id="avoid-constructor-over-injection">Avoid Constructor over-injection</h4>
+				<p>Constructor over-injection is a violation of the Single Responsibility Principle. Too many constructor arguments indicates too many dependencies; too many dependencies indicates that the class is trying to do too much. Usually this error correlates with other code smells, such as unusually long or ambiguous (&quot;manager&quot;) class names.</p>
+				<h4 id="avoid-the-injection-of-data-as-opposed-to-behaviour">Avoid the injection of data, as opposed to behaviour</h4>
+				<p>Injection of data, as opposed to behaviour, is a subtype of the poltergeist anti-pattern, with the &#39;geist in this case being the container. If a class needs to be aware of the current date and time, you don&#39;t inject a DateTime, which is data; instead, you inject an abstraction over the system clock. This is not only correct for DI; it is absolutely essential for testability, so that you can test time-varying functions without needing to actually wait on them.</p>
+				<h4 id="avoid-declaring-every-life-cycle-as-singleton">Avoid declaring every life cycle as Singleton</h4>
+				<p>Declaring every life cycle as Singleton is, to me, a perfect example of cargo cult programming and to a lesser degree the colloquially-named &quot;object cesspool&quot;. I&#39;ve seen more singleton abuse than I care to remember, and very little of it involves DI.</p>
+				<h4 id="avoid-implementation-specific-interface-types">Avoid implementation-specific interface types</h4>
+				<p>Another common error is implementation-specific interface types done just to be able to register it in the container. This is in and of itself a violation of the Dependency Inversion Principle (just because it&#39;s an interface, does not mean it&#39;s truly abstract) and often also includes interface bloat which violates the Interface Segregation Principle.</p>
+				<h4 id="avoid-optional-dependencies">Avoid optional dependencies</h4>
+				<p>In other words, there is a constructor that accepts dependency injection, but also another constructor that uses a &quot;default&quot; implementation. This also violates the DIP and tends to lead to LSP violations as well, as developers, over time, start making assumptions around the default implementation, and/or start new-ing up instances using the default constructor.</p>
+				<h1 id="contact">Contact</h1>
+				<p>If you want to share your thoughts with the development team or join us you will be able to do so using the <a href="https://groups.google.com/forum/#!forum/inversifyjs">official the mailing list</a>.</p>
+				<p>You can report issues using the <a href="https://github.com/inversify/InversifyJS/issues">Github issues page</a>.</p>
+				<h1 id="license">License</h1>
+				<p>License under the MIT License (MIT)</p>
+				<p>Copyright © 2015 <a href="http://www.remojansen.com">Remo H. Jansen</a></p>
+				<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &quot;Software&quot;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+				<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+				<p>THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+					<li class="label tsd-is-external">
+						<span>Internals</span>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_inversify_.html">"inversify"</a>
+					</li>
+					<li class="label tsd-is-external">
+						<span>Externals</span>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_activation_decorator_utils_.html">"activation/decorator_<wbr>utils"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_activation_inject_.html">"activation/inject"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_activation_metadata_.html">"activation/metadata"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_activation_named_.html">"activation/named"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_activation_paramnames_.html">"activation/paramnames"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_activation_tagged_.html">"activation/tagged"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_bindings_binding_.html">"bindings/binding"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_bindings_binding_count_.html">"bindings/binding_<wbr>count"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_bindings_binding_scope_.html">"bindings/binding_<wbr>scope"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_constants_error_msgs_.html">"constants/error_<wbr>msgs"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_constants_metadata_keys_.html">"constants/metadata_<wbr>keys"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_kernel_kernel_.html">"kernel/kernel"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_kernel_key_value_pair_.html">"kernel/key_<wbr>value_<wbr>pair"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_kernel_lookup_.html">"kernel/lookup"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_planning_context_.html">"planning/context"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_planning_plan_.html">"planning/plan"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_planning_planner_.html">"planning/planner"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_planning_queryable_string_.html">"planning/queryable_<wbr>string"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_planning_request_.html">"planning/request"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_planning_target_.html">"planning/target"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_resolution_resolver_.html">"resolution/resolver"</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="http://typedoc.io" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>

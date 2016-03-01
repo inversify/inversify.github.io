@@ -133,17 +133,21 @@
               named inversify-global.d.ts this file is included in the npm package:
             </p>
             <pre><code>/// &lt;reference path="./node_modules/inversify/type_definitions/inversify-global.d.ts" /&gt;</code></pre>
-            <h3>Status</h3>
+            <h3>Status &amp; Support</h3>
             <p>
-             If there are any broken builds a note will be posted here.
-             If you are experiencing problems please email let us know in
-             <a href="http://github.com/inversify/InversifyJS/issues">issues</a> or
-             <a href="http://gitter.im/inversify/InversifyJS">chat</a>. If you need
-             more details about the framework you can
-             <a href="./documentation/inversify.html">
-               browse the annotated source code
-             </a>
-             online.
+              If you are experience any kind of issues we will be happy to help. You can report an issue 
+              using the <a href="https://github.com/inversify/InversifyJS/issues">issues page</a> or 
+              the <a href="http://gitter.im/inversify/InversifyJS">chat</a>. 
+            <p>
+            </p>
+              You can also ask questions at <a href="http://stackoverflow.com/tags/inversifyjs">Stack overflow</a> 
+              using the <span class="label label-default">inversifyjs</span> tag. 
+            </p>
+            <p>
+              If you want to share your thoughts with the development team or join us you will be able to do 
+              so using the <a href="https://groups.google.com/forum/#!forum/inversifyjs">official the mailing list</a>.
+              You can check out the<a href="https://github.com/inversify/InversifyJS/wiki">development wiki</a> and browse the
+              <a href="./documentation/inversify.html">documented source code</a> to learn more about InversifyJS internals.
             </p>
             <p>
               <a href="http://gitter.im/inversify/InversifyJS?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge&amp;utm_content=badge"><img src="http://camo.githubusercontent.com/da2edb525cde1455a622c58c0effc3a90b9a181c/68747470733a2f2f6261646765732e6769747465722e696d2f4a6f696e253230436861742e737667" alt="Join the chat at http://gitter.im/inversify/InversifyJS" data-canonical-src="http://badges.gitter.im/Join%20Chat.svg" style="max-width:100%;"></a>
@@ -260,7 +264,7 @@ class FooBar implements FooBarInterface {
                     dependencies by examining the metadata provided by the 
                     Inject decorator.
                   </p>
-<pre><code>import { TypeBinding, Kernel, TypeBindingScopeEnum } from "inversify";
+<pre><code>import { Binding, Kernel, BindingScope } from "inversify";
 
 var kernel = new Kernel();
 </code></pre>
@@ -273,9 +277,9 @@ var kernel = new Kernel();
                     interface), and an implementation type (class)</b>.
                   </p>
 <pre><code>// bind
-kernel.bind(new TypeBinding&lt;FooInterface&gt;("FooInterface", Foo, TypeBindingScopeEnum.Transient));
-kernel.bind(new TypeBinding&lt;BarInterface&gt;("BarInterface", Bar, TypeBindingScopeEnum.Singleton));
-kernel.bind(new TypeBinding&lt;FooBarInterface&gt;("FooBarInterface", FooBar));
+kernel.bind(new Binding&lt;FooInterface&gt;("FooInterface", Foo, BindingScope.Transient));
+kernel.bind(new Binding&lt;BarInterface&gt;("BarInterface", Bar, BindingScope.Singleton));
+kernel.bind(new Binding&lt;FooBarInterface&gt;("FooBarInterface", FooBar));
 </code></pre>
                   <p>
                     When we declare a type binding, <b>the TypeScript compiler will
@@ -284,7 +288,7 @@ kernel.bind(new TypeBinding&lt;FooBarInterface&gt;("FooBarInterface", FooBar));
                     a compilation error if that is not the case.
                   </p>
 <pre><code>// Compilation error: Bar does not implement FooInterface
-kernel.bind(new TypeBinding&lt;FooInterface&gt;("FooInterface", Bar));
+kernel.bind(new Binding&lt;FooInterface&gt;("FooInterface", Bar));
 </code></pre>
 </code></pre>
                   <p>
@@ -441,9 +445,9 @@ var kernel = new inversify.Kernel();
                   it is recommended to use TypeScript.
                 </p>
 <pre><code>// bind
-kernel.bind(new inversify.TypeBinding("FooInterface", Foo, TypeBindingScopeEnum.Transient));
-kernel.bind(new inversify.TypeBinding("BarInterface", Bar, TypeBindingScopeEnum.Singleton));
-kernel.bind(new inversify.TypeBinding("FooBarInterface", FooBar));
+kernel.bind(new inversify.Binding("FooInterface", Foo, BindingScope.Transient));
+kernel.bind(new inversify.Binding("BarInterface", Bar, BindingScope.Singleton));
+kernel.bind(new inversify.Binding("FooBarInterface", FooBar));
 </code></pre>
                   <p>
                     We should <b>keep the InversifyJS Kernel instantiation and type bindings
@@ -637,14 +641,6 @@ foobar.log();     // foobar
                   </p>
               </li>
             </ul>
-            <h3 id="support">Support</h3>
-            <p>
-              If you are experience any kind of issues we will be happy to help. You can report an issue 
-              using the <a href="https://github.com/inversify/InversifyJS/issues">issues page</a>. 
-              You can also ask questions at <a href="http://stackoverflow.com/tags/inversifyjs">Stack overflow</a> 
-              using the <span class="label label-default">inversifyjs</span>
-              tag.
-            </p>
             <h3>License</h3>
             <p>
               License under the MIT License (MIT)

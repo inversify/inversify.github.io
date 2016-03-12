@@ -1,2 +1,2 @@
 # inversify.github.io
-The inversify website
+The InversifyJS official website

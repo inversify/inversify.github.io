@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>inversify</title>
+    <title>InversifyJS a powerful IoC container for JavaScript apps powered by TypeScript</title>
     <link rel="apple-touch-icon" sizes="57x57" href="./img/favicon/apple-icon-57x57.png"/>
     <link rel="apple-touch-icon" sizes="60x60" href="./img/favicon/apple-icon-60x60.png"/>
     <link rel="apple-touch-icon" sizes="72x72" href="./img/favicon/apple-icon-72x72.png"/>
@@ -393,26 +393,30 @@ class Ninja implements INinja {
     }
 }
 </code></pre>
+
 <pre><code>kernel.bind&lt;INinja&gt;("INinja").to(Ninja);
 
-kernel.bind&lt;IKatana&gt;("IKatana").to(Katana).proxy((ninja) =&gt; {
+kernel.bind&lt;IKatana&gt;("IKatana").to(Katana).proxy((katana) =&gt; {
     let handler = {
         apply: function(target, thisArgument, argumentsList) {
-            console.log(`Starting: ${performance.now()}`);
+            console.log(`Starting: ${new Date().getTime()}`);
             let result = target.apply(thisArgument, argumentsList);
-            console.log(`Finished: ${performance.now()}`);
+            console.log(`Finished: ${new Date().getTime()}`);
             return result;
         }
     };
-    return new Proxy(ninja, handler);
+    katana.use = new Proxy(katana.use, handler);
+    return katana;
 });
 </code></pre>
+
 <pre><code>let ninja = kernelget&lt;INinja&gt;();
 ninja.katana.use();
-&gt; Starting: 460495.88000000006
+&gt; Starting: 1457895135761
 &gt; Used Katana!
-&gt; Finished: 460496.585
+&gt; Finished: 1457895135762
 </code></pre>
+
 <h4>Multi-injection</h4>
 <p>We can use multi-injection When two or more concretions have been bound to the an abstraction.
 Notice how an array of <code>IWeapon</code> is injected into the <code>Ninja</code> class via its constructor:</p>

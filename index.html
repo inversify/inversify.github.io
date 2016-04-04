@@ -102,33 +102,32 @@
     </li>
     </ol>
 </div>
+<h3>Testimonies</h3>
+<p><strong><a href="https://twitter.com/nkohari">Nate Kohari</a></strong> - Author of <a href="https://github.com/ninject/Ninject">Ninject</a></p>
+<blockquote>
+<p><em>"Nice work! I've taken a couple shots at creating DI frameworks for JavaScript and TypeScript, but the lack of RTTI really hinders things.</em>
+<em>The ES7 metadata gets us part of the way there (as you've discovered). Keep up the great work!"</em></p>
+</blockquote>
 <h3>Installation</h3>
-
-<p>You can get the latest release and the type definitions using npm:
-
-<pre><code>npm install inversify&#64;2.0.0-alpha.3 --save
+<p>You can get the latest release and the type definitions using npm:</p>
+<pre><code class="language-sh">npm install inversify@<span class="hljs-number">2.0</span>.<span class="hljs-number">0</span>-alpha.<span class="hljs-number">8</span> --save
 </code></pre>
-
-<b>
-  <p><strong>Note</strong>: We have decided to <a href="https://twitter.com/nachocoloma/status/663622545162280960">drop support for bower</a> and tsd.</p>
-</b>
-
+<blockquote>
+<p><strong>Note</strong>: We have decided to <a href="https://twitter.com/nachocoloma/status/663622545162280960">drop support for bower</a> and tsd.</p>
+</blockquote>
 <p>The InversifyJS type definitions are included in the npm package:</p>
-
-<pre><code>/// &lt;reference path="node_modules/inversify/type_definitions/inversify.d.ts" /&gt;
+<pre><code class="language-ts">/// &lt;reference path="node_modules/inversify/type_definitions/inversify/inversify.d.ts" /&gt;
 </code></pre>
-
-<b>
-  <p><strong>Note</strong>: InversifyJS requires a modern JavaScript engine with support for the Promise, Reflect (with metadata) and Proxy objects. If your environment don't support one of these you will need to import a shim or polypill. Check out the <a href="https://github.com/inversify/InversifyJS/wiki/Environmemt-support-and-polyfills">Environment support and polyfills</a> page in the wiki to learn more.</p>
-</b>
-
+<blockquote>
+<p><strong>Note</strong>: InversifyJS requires a modern JavaScript engine with support for the Promise, Reflect (with metadata) and Proxy objects. If your environment don't support one of these you will need to import a shim or polypill. Check out the <a href="https://github.com/inversify/InversifyJS/wiki/Environmemt-support-and-polyfills">Environment support and polyfills</a> page in the wiki to learn more.</p>
+</blockquote>
 <h3>The Basics (TypeScript)</h3>
 <p>Let’s take a look to the basic usage and APIs of InversifyJS with TypeScript:</p>
 <h4>Step 1: Declare your interfaces</h4>
 <p>Our goal is to write code that adheres to the <a href="https://en.wikipedia.org/wiki/Dependency_inversion_principle">dependency inversion principle</a>.
 This means that we should "depend upon Abstractions and do not depend upon concretions".
 Let's start by declaring some interfaces (abstractions).</p>
-<pre><code>interface INinja {
+<pre><code class="language-ts">interface INinja {
     fight(): string;
     sneak(): string;
 }
@@ -141,29 +140,38 @@ interface IShuriken {
     throw();
 }
 </code></pre>
-<h4>Step 2: Implement the interfaces and declare dependencies using the <code>@inject</code> decorator</h4>
-<p>Let's continue by declaring some classes (concretions). The classes are implementations of the interfaces that we just declared.</p>
-<pre><code>import { inject } from "inversify";
+<h4>Step 2: Declare dependencies using the <code>@injectable</code> &amp; <code>@inject</code> decorators</h4>
+<p>Let's continue by declaring some classes (concretions). The classes are implementations of the interfaces that we just declared. All the classes must be annotated with the <code>@injectable</code> decorator.</p>
+<p>When a class has a  dependency on an interface we also need to use the <code>@inject</code> decorator to define an identifier for the interface that will be available at runtime. In this case we will use the string literals <code>"IKatana"</code> and <code>"IShuriken"</code> as runtime identifiers.</p>
+<blockquote>
+<p><strong>Note</strong>: InversifyJS also support the usage of Classes and Symbols (continue reading to learn more about this).</p>
+</blockquote>
+<pre><code class="language-ts">import { injectable, inject } from "inversify";
 
+@injectable()
 class Katana implements IKatana {
     public hit() {
         return "cut!";
     }
 }
 
+@injectable()
 class Shuriken implements IShuriken {
     public throw() {
         return "hit!";
     }
 }
 
-@inject("IKatana", "IShuriken")
+@injectable()
 class Ninja implements INinja {
 
     private _katana: IKatana;
     private _shuriken: IShuriken;
 
-    public constructor(katana: IKatana, shuriken: IShuriken) {
+    public constructor(
+        @inject("IKatana") katana: IKatana,
+        @inject("IShuriken") shuriken: IShuriken
+    ) {
         this._katana = katana;
         this._shuriken = shuriken;
     }
@@ -176,7 +184,7 @@ class Ninja implements INinja {
 <h4>Step 3: Create and configure a Kernel</h4>
 <p>We recommend to do this in a file named <code>inversify.config.ts</code>. This is the only place in which there is some coupling.
 In the rest of your application your classes should be free of references to other classes.</p>
-<pre><code>import { Kernel } from "inversify";
+<pre><code class="language-ts">import { Kernel } from "inversify";
 
 import { Ninja } from "./entities/ninja";
 import { Katana } from "./entities/katana";
@@ -193,7 +201,7 @@ export default kernel;
 <p>You can use the method <code>get&lt;T&gt;</code> from the <code>Kernel</code> class to resolve a dependency.
 Remember that you should do this only in your <a href="http://blog.ploeh.dk/2011/07/28/CompositionRoot/">composition root</a>
 to avoid the <a href="http://blog.ploeh.dk/2010/02/03/ServiceLocatorisanAnti-Pattern/">service locator anti-pattern</a>.</p>
-<pre><code>import kernel = from "./inversify.config";
+<pre><code class="language-ts">import kernel = from "./inversify.config";
 
 var ninja = kernel.get&lt;INinja&gt;("INinja");
 
@@ -203,80 +211,181 @@ expect(ninja.sneak()).eql("hit!"); // true
 <p>As we can see the <code>IKatana</code> and <code>IShuriken</code> were successfully resolved and injected into <code>Ninja</code>.</p>
 <h3>The Basics (JavaScript)</h3>
 <p>It is recommended to use TypeScript for the best development experience but you can use plain JavaScript
-if you prefer it. The following code snippet implements the previous example without TypeScript in <a href="http://Node.js">Node.js</a> v5.71:</p>
-<pre><code>var inversify = require("inversify");
-require("reflect-metadata");
+if you preffer it. The following code snippet implements the previous example without TypeScript in <a href="http://Node.js">Node.js</a> v5.71:</p>
+<pre><code class="language-js"><span class="hljs-keyword">var</span> inversify = <span class="hljs-built_in">require</span>(<span class="hljs-string">"inversify"</span>);
+<span class="hljs-built_in">require</span>(<span class="hljs-string">"reflect-metadata"</span>);
 
-var TYPES = {
-    Ninja: "Ninja",
-    Katana: "Katana",
-    Shuriken: "Shuriken"
+<span class="hljs-keyword">var</span> TYPES = {
+    Ninja: <span class="hljs-string">"Ninja"</span>,
+    Katana: <span class="hljs-string">"Katana"</span>,
+    Shuriken: <span class="hljs-string">"Shuriken"</span>
 };
 
-class Katana {
+<span class="hljs-keyword">class</span> Katana {
     hit() {
-        return "cut!";
+        <span class="hljs-keyword">return</span> <span class="hljs-string">"cut!"</span>;
     }
 }
 
-class Shuriken {
-    throw() {
-        return "hit!";
+<span class="hljs-keyword">class</span> Shuriken {
+    <span class="hljs-keyword">throw</span>() {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">"hit!"</span>;
     }
 }
 
-class Ninja {
+<span class="hljs-keyword">class</span> Ninja {
     constructor(katana, shuriken) {
-        this._katana = katana;
-        this._shuriken = shuriken;
+        <span class="hljs-keyword">this</span>._katana = katana;
+        <span class="hljs-keyword">this</span>._shuriken = shuriken;
     }
-    fight() { return this._katana.hit(); };
-    sneak() { return this._shuriken.throw(); };
+    fight() { <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._katana.hit(); };
+    sneak() { <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._shuriken.throw(); };
 }
 
-// Declare injections
-inversify.inject(TYPES.Katana, TYPES.Shuriken)(Ninja);
+<span class="hljs-comment">// Declare as injectable and its dependencies</span>
+inversify.decorate(injectable(), Katana);
+inversify.decorate(injectable(), Shuriken);
+inversify.decorate(injectable(), Ninja);
+inversify.decorate(inject(TYPES.Katana), Ninja, <span class="hljs-number">0</span>);
+inversify.decorate(inject(TYPES.Shuriken), Ninja, <span class="hljs-number">1</span>);
 
-// Declare bindings
-var kernel = new inversify.Kernel();
+<span class="hljs-comment">// Declare bindings</span>
+<span class="hljs-keyword">var</span> kernel = <span class="hljs-keyword">new</span> inversify.Kernel();
 kernel.bind(TYPES.Ninja).to(Ninja);
 kernel.bind(TYPES.Katana).to(Katana);
 kernel.bind(TYPES.Shuriken).to(Shuriken);
 
-// Resolve dependencies
-var ninja = kernel.get(TYPES.Ninja);
-return ninja;
+<span class="hljs-comment">// Resolve dependencies</span>
+<span class="hljs-keyword">var</span> ninja = kernel.get(TYPES.Ninja);
+<span class="hljs-keyword">return</span> ninja;
 </code></pre>
-<h3>Features (v2.0.0 alpha.3)</h3>
+<h3>Features (v2.0.0-alpha.8)</h3>
 <p>Let's take a look to the InversifyJS features!</p>
-<h4>Declaring kernel modules</h4>
-<p>Kernel modules can help you to manage the complexity of your bindings in very large applications.</p>
-<pre><code>let someModule: IKernelModule = (kernel: IKernel) =&gt; {
-    kernel.bind&lt;INinja&gt;("INinja").to(Ninja);
-    kernel.bind&lt;IKatana&gt;("IKatana").to(Katana);
-    kernel.bind&lt;IShuriken&gt;("IShuriken").to(Shuriken);
+<h4>Support for classes</h4>
+<p>InversifyJS allows your classes to have a direct dependency on other classes. When doing so you will need to use the <code>@injectavle</code> decorator but you will not be required to use the <code>@inject</code> decorator.</p>
+<pre><code class="language-ts">import { Kernel, injectable, inject } from "inversify";
+
+@injectable()
+class Katana {
+    public hit() {
+        return "cut!";
+    }
+}
+
+@injectable()
+class Shuriken {
+    public throw() {
+        return "hit!";
+    }
+}
+
+@injectable()
+class Ninja implements INinja {
+
+    private _katana: Katana;
+    private _shuriken: Shuriken;
+
+    public constructor(katana: Katana, shuriken: Shuriken) {
+        this._katana = katana;
+        this._shuriken = shuriken;
+    }
+
+    public fight() { return this._katana.hit(); };
+    public sneak() { return this._shuriken.throw(); };
+
+}
+
+var kernel = new Kernel();
+kernel.bind&lt;Ninja&gt;(Ninja).to(Ninja);
+kernel.bind&lt;Katana&gt;(Katana).to(Katana);
+kernel.bind&lt;Shuriken&gt;(Shuriken).to(Shuriken);
+</code></pre>
+<h4>Support for Symbols</h4>
+<p>In very large applications using strings as the identifiers of the types to be injected by the InversifyJS can lead to naming collisions. InversifyJS supports and recommends the usage of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol">Symbols</a> instead of string literals.</p>
+<blockquote>
+<p>A symbol is a unique and immutable data type and may be used as an identifier for object properties. The symbol object is an implicit object wrapper for the symbol primitive data type.</p>
+</blockquote>
+<pre><code class="language-ts">import { Kernel, injectable, inject } from "inversify";
+
+let Symbols = {
+    INinja : Symbol("INinja"),
+    IKatana : Symbol("IKatana"),
+    IShuriken : Symbol("IShuriken")
 };
 
-let kernel = new Kernel({ modules: [ someModule ] });
-</code></pre>
-<h4>Controlling the scope of the dependencies</h4>
-<p>InversifyJS uses transient scope by default but you can also use singleton scope:</p>
-<pre><code>kernel.bind&lt;IShuriken&gt;("IShuriken").to(Shuriken).inTransientScope(); // Default
-kernel.bind&lt;IShuriken&gt;("IShuriken").to(Shuriken).inSingletonScope();
-</code></pre>
-<h4>Injecting a value</h4>
-<p>Binds an abstraction to a constant value.</p>
-<pre><code>kernel.bind&lt;IKatana&gt;("IKatana").toValue(new Katana());
-</code></pre>
-<h4>Injecting a class constructor</h4>
-<p>Binds an abstraction to a class constructor.</p>
-<pre><code>@inject("IKatana", "IShuriken")
+@injectable()
+class Katana implements IKatana {
+    public hit() {
+        return "cut!";
+    }
+}
+
+@injectable()
+class Shuriken implements IShuriken {
+    public throw() {
+        return "hit!";
+    }
+}
+
+@injectable()
 class Ninja implements INinja {
 
     private _katana: IKatana;
     private _shuriken: IShuriken;
 
-    public constructor(Katana: INewable&lt;IKatana&gt;, shuriken: IShuriken) {
+    public constructor(
+        @inject(Symbols.IKatana) katana: IKatana,
+        @inject(Symbols.IShuriken) shuriken: IShuriken
+    ) {
+        this._katana = katana;
+        this._shuriken = shuriken;
+    }
+
+    public fight() { return this._katana.hit(); };
+    public sneak() { return this._shuriken.throw(); };
+
+}
+
+var kernel = new Kernel();
+kernel.bind&lt;INinja&gt;(Symbols.INinja).to(Ninja);
+kernel.bind&lt;IKatana&gt;(Symbols.IKatana).to(Katana);
+kernel.bind&lt;IShuriken&gt;(Symbols.IShuriken).to(Shuriken);
+</code></pre>
+<h4>Declaring kernel modules</h4>
+<p>Kernel modules can help you to manage the complexity of your bindings in very large applications.</p>
+<pre><code class="language-ts">let warriors: IKernelModule = (k: IKernel) =&gt; {
+    k.bind&lt;INinja&gt;("INinja").to(Ninja);
+};
+
+let weapons: IKernelModule = (k: IKernel) =&gt; {
+    k.bind&lt;IKatana&gt;("IKatana").to(Katana).inTransientScope();
+    k.bind&lt;IShuriken&gt;("IShuriken").to(Shuriken).inSingletonScope();
+};
+
+kernel = new Kernel();
+kernel.load(warriors, weapons);
+</code></pre>
+<h4>Controlling the scope of the dependencies</h4>
+<p>InversifyJS uses transient scope by default but you can also use singleton scope:</p>
+<pre><code class="language-ts">kernel.bind&lt;IShuriken&gt;("IShuriken").to(Shuriken).inTransientScope(); // Default
+kernel.bind&lt;IShuriken&gt;("IShuriken").to(Shuriken).inSingletonScope();
+</code></pre>
+<h4>Injecting a value</h4>
+<p>Binds an abstraction to a constant value.</p>
+<pre><code class="language-ts">kernel.bind&lt;IKatana&gt;("IKatana").toValue(new Katana());
+</code></pre>
+<h4>Injecting a class constructor</h4>
+<p>Binds an abstraction to a class constructor.</p>
+<pre><code class="language-ts">@injectable()
+class Ninja implements INinja {
+
+    private _katana: IKatana;
+    private _shuriken: IShuriken;
+
+    public constructor(
+        @inject("INewable&lt;IKatana&gt;") Katana: INewable&lt;IKatana&gt;, 
+        @inject("IShuriken") shuriken: IShuriken
+    ) {
         this._katana = new Katana();
         this._shuriken = shuriken;
     }
@@ -286,17 +395,20 @@ class Ninja implements INinja {
 
 }
 </code></pre>
-<pre><code>kernel.bind&lt;INewable&lt;IKatana&gt;&gt;("INewable&lt;IKatana&gt;").toConstructor&lt;IKatana&gt;(Katana);
+<pre><code class="language-ts">kernel.bind&lt;INewable&lt;IKatana&gt;&gt;("INewable&lt;IKatana&gt;").toConstructor&lt;IKatana&gt;(Katana);
 </code></pre>
 <h4>Injecting a Factory</h4>
 <p>Binds an abstraction to a user defined Factory.</p>
-<pre><code>@inject("IKatana", "IShuriken")
+<pre><code class="language-ts">@injectable()
 class Ninja implements INinja {
 
     private _katana: IKatana;
     private _shuriken: IShuriken;
 
-    public constructor(katanaFactory: IFactory&lt;IKatana&gt;, shuriken: IShuriken) {
+    public constructor(
+        @inject("IFactory&lt;IKatana&gt;") katanaFactory: IFactory&lt;IKatana&gt;, 
+        @inject("IShuriken") shuriken: IShuriken
+    ) {
         this._katana = katanaFactory();
         this._shuriken = shuriken;
     }
@@ -306,7 +418,7 @@ class Ninja implements INinja {
 
 }
 </code></pre>
-<pre><code>kernel.bind&lt;IFactory&lt;IKatana&gt;&gt;("IFactory&lt;IKatana&gt;").toFactory&lt;IKatana&gt;((context) =&gt; {
+<pre><code class="language-ts">kernel.bind&lt;IFactory&lt;IKatana&gt;&gt;("IFactory&lt;IKatana&gt;").toFactory&lt;IKatana&gt;((context) =&gt; {
     return () =&gt; {
         return context.kernel.get&lt;IKatana&gt;("IKatana");
     };
@@ -314,13 +426,16 @@ class Ninja implements INinja {
 </code></pre>
 <h4>Auto factory</h4>
 <p>Binds an abstraction to a auto-generated Factory.</p>
-<pre><code>@inject("IKatana", "IShuriken")
+<pre><code class="language-ts">@injectable()
 class Ninja implements INinja {
 
     private _katana: IKatana;
     private _shuriken: IShuriken;
 
-    public constructor(katanaFactory: IFactory&lt;IKatana&gt;, shuriken: IShuriken) {
+    public constructor(
+        @inject("IFactory&lt;IKatana&gt;") katanaFactory: IFactory&lt;IKatana&gt;,
+        @inject("IShuriken") shuriken: IShuriken
+    ) {
         this._katana = katanaFactory();
         this._shuriken = shuriken;
     }
@@ -330,18 +445,22 @@ class Ninja implements INinja {
 
 }
 </code></pre>
-<pre><code>kernel.bind&lt;IFactory&lt;IKatana&gt;&gt;("IFactory&lt;IKatana&gt;").toAutoFactory&lt;IKatana&gt;();
+<pre><code class="language-ts">kernel.bind&lt;IFactory&lt;IKatana&gt;&gt;("IFactory&lt;IKatana&gt;")
+      .toAutoFactory&lt;IKatana&gt;("IKatana");
 </code></pre>
 <h4>Injecting a Provider (asynchronous Factory)</h4>
 <p>Binds an abstraction to a Provider. A provider is an asynchronous factory, this is useful when dealing with asynchronous  I/O operations.</p>
-<pre><code>@inject("IKatana", "IShuriken")
+<pre><code class="language-ts">@injectable()
 class Ninja implements INinja {
 
     public katana: IKatana;
     public shuriken: IShuriken;
     public katanaProvider: IProvider&lt;IKatana&gt;;
 
-    public constructor(katanaProvider: IProvider&lt;IKatana&gt;, shuriken: IShuriken) {
+    public constructor(
+        @inject("IProvider&lt;IKatana&gt;") katanaProvider: IProvider&lt;IKatana&gt;, 
+        @inject("IShuriken") shuriken: IShuriken
+    ) {
         this.katanaProvider = katanaProvider;
         this.katana= null;
         this.shuriken = shuriken;
@@ -351,14 +470,8 @@ class Ninja implements INinja {
     public sneak() { return this._shuriken.throw(); };
 
 }
-
-var ninja = kernel.get&lt;INinja&gt;("INinja");
-
-ninja.katanaProvider()
-     .then((katana) =&gt; { ninja.katana = katana; })
-     .catch((e) =&gt; { console.log(e); });
 </code></pre>
-<pre><code>kernel.bind&lt;IProvider&lt;IKatana&gt;&gt;("IProvider&lt;IKatana&gt;").toProvider&lt;IKatana&gt;((context) =&gt; {
+<pre><code class="language-ts">kernel.bind&lt;IProvider&lt;IKatana&gt;&gt;("IProvider&lt;IKatana&gt;").toProvider&lt;IKatana&gt;((context) =&gt; {
     return () =&gt; {
         return new Promise&lt;IKatana&gt;((resolve) =&gt; {
             let katana = context.kernel.get&lt;IKatana&gt;("IKatana");
@@ -366,15 +479,20 @@ ninja.katanaProvider()
         });
     };
 });
+
+var ninja = kernel.get&lt;INinja&gt;("INinja");
+
+ninja.katanaProvider()
+     .then((katana) =&gt; { ninja.katana = katana; })
+     .catch((e) =&gt; { console.log(e); });
 </code></pre>
-<h4>Injecting a proxy</h4>
-<p>It is possible to create a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy">proxy</a> of
-a dependency just before it is injected. This is useful to keep our dependencies agnostic of the implementation of crosscutting
-concerns like caching or logging.</p>
-<pre><code>interface IKatana {
+<h4>Activation handler</h4>
+<p>It is possible to add an activation handler for a type. The activation handler is invoked after a dependency has been resolved and before it is added to the cache (if singleton) and injected. This is useful to keep our dependencies agnostic of the  implementation of crosscutting concerns like caching or logging. The following example uses a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy">proxy</a> to intercept one of the methods (<code>use</code>) of a dependency (<code>IKatana</code>).</p>
+<pre><code class="language-ts">interface IKatana {
     use: () =&gt; void;
 }
 
+@injectable()
 class Katana implements IKatana {
     public use() {
         console.log("Used Katana!");
@@ -385,18 +503,17 @@ interface INinja {
     katana: IKatana;
 }
 
-@inject("IKatana")
+@injectable()
 class Ninja implements INinja {
     public katana: IKatana;
-    public constructor(katana: IKatana) {
+    public constructor(@inject("IKatana") katana: IKatana) {
         this.katana = katana;
     }
 }
 </code></pre>
+<pre><code class="language-ts">kernel.bind&lt;INinja&gt;("INinja").to(Ninja);
 
-<pre><code>kernel.bind&lt;INinja&gt;("INinja").to(Ninja);
-
-kernel.bind&lt;IKatana&gt;("IKatana").to(Katana).proxy((katana) =&gt; {
+kernel.bind&lt;IKatana&gt;("IKatana").to(Katana).onActivation((context, katana) =&gt; {
     let handler = {
         apply: function(target, thisArgument, argumentsList) {
             console.log(`Starting: ${new Date().getTime()}`);
@@ -409,24 +526,82 @@ kernel.bind&lt;IKatana&gt;("IKatana").to(Katana).proxy((katana) =&gt; {
     return katana;
 });
 </code></pre>
-
-<pre><code>let ninja = kernelget&lt;INinja&gt;();
+<pre><code class="language-ts">let ninja = kernelget&lt;INinja&gt;();
 ninja.katana.use();
 &gt; Starting: 1457895135761
 &gt; Used Katana!
 &gt; Finished: 1457895135762
 </code></pre>
+<h4>Middleware</h4>
+<p>InversifyJS performs <strong>3 mandatory operations</strong> before resolving a dependency:</p>
+<ul>
+<li><strong>Annotation</strong></li>
+<li><strong>Planning</strong></li>
+<li><strong>Middleware (optional)</strong></li>
+<li><strong>Resolution</strong></li>
+<li><strong>Activation (optional)</strong></li>
+</ul>
+<p>In some cases there will be some <strong>additional operations (middleware &amp; activation)</strong>.</p>
+<p>If we have configured some Middleware it will be executed just before the
+<a href="https://github.com/inversify/InversifyJS/wiki/Architecture-overview">resolution phase</a> takes place.</p>
+<p>Middleware can be used to implement powerful development tools.
+This kind of tools will help developers to identify problems during the development process.</p>
+<pre><code class="language-ts">function logger(next: (context: IContext) =&gt; any) {
+    return (context: IContext) =&gt; {
+        let result = next(context);
+        console.log("CONTEXT: ", context);
+        console.log("RESULT: ", result);
+        return result;
+    };
+};
+</code></pre>
+<p>Now that we have declared a middleware we can create a new <code>Kernel</code> and
+use its <code>applyMiddleware</code> method to apply it:</p>
+<pre><code class="language-ts">interface INinja {}
 
+@injectable()
+class Ninja implements INinja {}
+
+let kernel = new Kernel();
+kernel.bind&lt;INinja&gt;("INinja").to(Ninja);
+
+kernel.applyMiddleware(logger);
+</code></pre>
+<p>The <code>logger</code> middleware will log in console the context and result:</p>
+<pre><code class="language-ts">let ninja = kernel.get&lt;INinja&gt;("INinja");
+&gt; CONTEXT:  Context {
+  kernel: 
+   Kernel {
+     _planner: Planner {},
+     _resolver: Resolver {},
+     _bindingDictionary: Lookup { _dictionary: [Object] },
+     _middleware: [Function] },
+  plan: 
+   Plan {
+     parentContext: [Circular],
+     rootRequest: 
+      Request {
+        service: 'INinja',
+        parentContext: [Circular],
+        parentRequest: null,
+        target: null,
+        childRequests: [],
+        bindings: [Object] } } }
+&gt; RESULT:  Ninja {}
+</code></pre>
 <h4>Multi-injection</h4>
 <p>We can use multi-injection When two or more concretions have been bound to the an abstraction.
-Notice how an array of <code>IWeapon</code> is injected into the <code>Ninja</code> class via its constructor:</p>
-<pre><code>interface IWeapon {
+Notice how an array of <code>IWeapon</code> is injected into the <code>Ninja</code> class via its constructor thanks to the usage of the <code>@multiInject</code> decorator:</p>
+<pre><code class="language-ts">interface IWeapon {
     name: string;
 }
 
+@injectable()
 class Katana implements IWeapon {
     public name = "Katana";
 }
+
+@injectable()
 class Shuriken implements IWeapon {
     public name = "Shuriken";
 }
@@ -436,18 +611,20 @@ interface INinja {
     shuriken: IWeapon;
 }
 
-@inject("IWeapon[]")
+@injectable()
 class Ninja implements INinja {
     public katana: IWeapon;
     public shuriken: IWeapon;
-    public constructor(weapons: IWeapon[]) {
+    public constructor(
+        @multiInject("IWeapon") weapons: IWeapon[]
+    ) {
         this.katana = weapons[0];
         this.shuriken = weapons[1];
     }
 }
 </code></pre>
 <p>We are binding <code>Katana</code> and <code>Shuriken</code> to <code>IWeapon</code>:</p>
-<pre><code>kernel.bind&lt;INinja&gt;("INinja").to(Ninja);
+<pre><code class="language-ts">kernel.bind&lt;INinja&gt;("INinja").to(Ninja);
 kernel.bind&lt;IWeapon&gt;("IWeapon").to(Katana);
 kernel.bind&lt;IWeapon&gt;("IWeapon").to(Shuriken);
 </code></pre>
@@ -455,8 +632,12 @@ kernel.bind&lt;IWeapon&gt;("IWeapon").to(Shuriken);
 <p>We can use tagged bindings to fix <code>AMBIGUOUS_MATCH</code> errors when two or more
 concretions have been bound to the an abstraction. Notice how the  constructor
 arguments of the <code>Ninja</code> class have been annotated using the <code>@tagged</code> decorator:</p>
-<pre><code>interface IWeapon {}
-class Katana implements IWeapon { }
+<pre><code class="language-ts">interface IWeapon {}
+
+@injectable()
+class Katana implements IWeapon {}
+
+@injectable()
 class Shuriken implements IWeapon {}
 
 interface INinja {
@@ -464,13 +645,13 @@ interface INinja {
     shuriken: IWeapon;
 }
 
-@inject("IWeapon", "IWeapon")
+@injectable()
 class Ninja implements INinja {
     public katana: IWeapon;
     public shuriken: IWeapon;
     public constructor(
-        @tagged("canThrow", false) katana: IWeapon,
-        @tagged("canThrow", true) shuriken: IWeapon
+        @inject("IWeapon") @tagged("canThrow", false) katana: IWeapon,
+        @inject("IWeapon") @tagged("canThrow", true) shuriken: IWeapon
     ) {
         this.katana = katana;
         this.shuriken = shuriken;
@@ -479,22 +660,22 @@ class Ninja implements INinja {
 </code></pre>
 <p>We are binding <code>Katana</code> and <code>Shuriken</code> to <code>IWeapon</code> but a <code>whenTargetTagged</code>
 constraint is added to avoid <code>AMBIGUOUS_MATCH</code> errors:</p>
-<pre><code>kernel.bind&lt;INinja&gt;(ninjaId).to(Ninja);
+<pre><code class="language-ts">kernel.bind&lt;INinja&gt;(ninjaId).to(Ninja);
 kernel.bind&lt;IWeapon&gt;(weaponId).to(Katana).whenTargetTagged("canThrow", false);
 kernel.bind&lt;IWeapon&gt;(weaponId).to(Shuriken).whenTargetTagged("canThrow", true);
 </code></pre>
 <h4>Create your own tag decorators</h4>
 <p>Creating your own decorators is really simple:</p>
-<pre><code>let throwable = tagged("canThrow", true);
+<pre><code class="language-ts">let throwable = tagged("canThrow", true);
 let notThrowable = tagged("canThrow", false);
 
-@inject("IWeapon", "IWeapon")
+@injectable()
 class Ninja implements INinja {
     public katana: IWeapon;
     public shuriken: IWeapon;
     public constructor(
-        @notThrowable katana: IWeapon,
-        @throwable shuriken: IWeapon
+        @inject("IWeapon") @notThrowable katana: IWeapon,
+        @inject("IWeapon") @throwable shuriken: IWeapon
     ) {
         this.katana = katana;
         this.shuriken = shuriken;
@@ -505,8 +686,12 @@ class Ninja implements INinja {
 <p>We can use named bindings to fix <code>AMBIGUOUS_MATCH</code> errors when two or more concretions have
 been bound to the an abstraction. Notice how the constructor arguments of the <code>Ninja</code> class
 have been annotated using the <code>@named</code> decorator:</p>
-<pre><code>interface IWeapon {}
-class Katana implements IWeapon { }
+<pre><code class="language-ts">interface IWeapon {}
+
+@injectable()
+class Katana implements IWeapon {}
+
+@injectable()
 class Shuriken implements IWeapon {}
 
 interface INinja {
@@ -514,13 +699,13 @@ interface INinja {
     shuriken: IWeapon;
 }
 
-@inject("IWeapon", "IWeapon")
+@injectable()
 class Ninja implements INinja {
     public katana: IWeapon;
     public shuriken: IWeapon;
     public constructor(
-        @named("strong")katana: IWeapon,
-        @named("weak") shuriken: IWeapon
+        @inject("IWeapon") @named("strong")katana: IWeapon,
+        @inject("IWeapon") @named("weak") shuriken: IWeapon
     ) {
         this.katana = katana;
         this.shuriken = shuriken;
@@ -529,17 +714,21 @@ class Ninja implements INinja {
 </code></pre>
 <p>We are binding <code>Katana</code> and <code>Shuriken</code> to <code>IWeapon</code> but a <code>whenTargetNamed</code> constraint is
 added to avoid <code>AMBIGUOUS_MATCH</code> errors:</p>
-<pre><code>kernel.bind&lt;INinja&gt;("INinja").to(Ninja);
+<pre><code class="language-ts">kernel.bind&lt;INinja&gt;("INinja").to(Ninja);
 kernel.bind&lt;IWeapon&gt;("IWeapon").to(Katana).whenTargetNamed("strong");
 kernel.bind&lt;IWeapon&gt;("IWeapon").to(Shuriken).whenTargetNamed("weak");
 </code></pre>
 <h4>Contextual bindings &amp; @paramNames</h4>
-<p>The <code>@paramNames</code> decorator is used to access the names of the constructor arguments from a
+<p>The <code>@paramName</code> decorator is used to access the names of the constructor arguments from a
 contextual constraint even when the code is compressed. The <code>constructor(katana, shuriken) { ...</code>
-becomes <code>constructor(a, b) { ...</code> after compression but thanks to <code>@paramNames</code> we can still
-refer to the design-time names <code>katana</code> and <code>shuriken</code>.</p>
-<pre><code>interface IWeapon {}
-class Katana implements IWeapon { }
+becomes <code>constructor(a, b) { ...</code> after compression but thanks to <code>@paramName</code> we can still
+refer to the design-time names <code>katana</code> and <code>shuriken</code> at runtime.</p>
+<pre><code class="language-ts">interface IWeapon {}
+
+@injectable()
+class Katana implements IWeapon {}
+
+@injectable()
 class Shuriken implements IWeapon {}
 
 interface INinja {
@@ -547,14 +736,13 @@ interface INinja {
     shuriken: IWeapon;
 }
 
-@inject("IWeapon", "IWeapon")
-@paramNames("katana","shuriken")
+@injectable()
 class Ninja implements INinja {
     public katana: IWeapon;
     public shuriken: IWeapon;
     public constructor(
-        katana: IWeapon,
-        shuriken: IWeapon
+        @inject("IWeapon") @paramName("katana") katana: IWeapon,
+        @inject("IWeapon") @paramName("shuriken") shuriken: IWeapon
     ) {
         this.katana = katana;
         this.shuriken = shuriken;
@@ -562,7 +750,7 @@ class Ninja implements INinja {
 }
 </code></pre>
 <p>We are binding <code>Katana</code> and <code>Shuriken</code> to <code>IWeapon</code> but a custom <code>when</code> constraint is added to avoid <code>AMBIGUOUS_MATCH</code> errors:</p>
-<pre><code>kernel.bind&lt;INinja&gt;(ninjaId).to(Ninja);
+<pre><code class="language-ts">kernel.bind&lt;INinja&gt;(ninjaId).to(Ninja);
 
 kernel.bind&lt;IWeapon&gt;("IWeapon").to(Katana).when((request: IRequest) =&gt; {
     return request.target.name.equals("katana");
@@ -573,29 +761,55 @@ kernel.bind&lt;IWeapon&gt;("IWeapon").to(Shuriken).when((request: IRequest) =&gt
 });
 </code></pre>
 <p>The target fields implement the <code>IQueryableString</code> interface to help you to create your custom constraints:</p>
-<pre><code>interface IQueryableString {
-  startsWith(searchString: string): boolean;
-  endsWith(searchString: string): boolean;
-  contains(searchString: string): boolean;
-  equals(compareString: string): boolean;
-  value(): string;
+<pre><code class="language-ts">interface IQueryableString {
+     startsWith(searchString: string): boolean;
+     endsWith(searchString: string): boolean;
+     contains(searchString: string): boolean;
+     equals(compareString: string): boolean;
+     value(): string;
+}
+</code></pre>
+<p>We have included some helpers to facilitate the creation of custom constraints:</p>
+<pre><code class="language-ts">import { Kernel, traverseAncerstors, taggedConstraint, namedConstraint, typeConstraint } from "inversify";
+
+let whenParentNamedCanThrowConstraint = (request: IRequest) =&gt; {
+    return namedConstraint("canThrow")(request.parentRequest);
+};
+
+let whenAnyAncestorIsConstraint = (request: IRequest) =&gt; {
+    return traverseAncerstors(request, typeConstraint(Ninja));
+};
+
+let whenAnyAncestorTaggedConstraint = (request: IRequest) =&gt; {
+    return traverseAncerstors(request, taggedConstraint("canThrow")(true));
+};
+</code></pre>
+<p>The InversifyJS fluent syntax for bindings includes some already implemented common contextual constraints:</p>
+<pre><code class="language-ts">interface IBindingWhenSyntax&lt;T&gt; {
+    when(constraint: (request: IRequest) =&gt; boolean): IBindingOnSyntax&lt;T&gt;;
+    whenTargetNamed(name: string): IBindingOnSyntax&lt;T&gt;;
+    whenTargetTagged(tag: string, value: any): IBindingOnSyntax&lt;T&gt;;
+    whenInjectedInto(parent: (Function|string)): IBindingOnSyntax&lt;T&gt;;
+    whenParentNamed(name: string): IBindingOnSyntax&lt;T&gt;;
+    whenParentTagged(tag: string, value: any): IBindingOnSyntax&lt;T&gt;;
+    whenAnyAncestorIs(ancestor: (Function|string)): IBindingOnSyntax&lt;T&gt;;
+    whenNoAncestorIs(ancestor: (Function|string)): IBindingOnSyntax&lt;T&gt;;
+    whenAnyAncestorNamed(name: string): IBindingOnSyntax&lt;T&gt;;
+    whenAnyAncestorTagged(tag: string, value: any): IBindingOnSyntax&lt;T&gt;;
+    whenNoAncestorNamed(name: string): IBindingOnSyntax&lt;T&gt;;
+    whenNoAncestorTagged(tag: string, value: any): IBindingOnSyntax&lt;T&gt;;
+    whenAnyAncestorMatches(constraint: (request: IRequest) =&gt; boolean): IBindingOnSyntax&lt;T&gt;;
+    whenNoAncestorMatches(constraint: (request: IRequest) =&gt; boolean): IBindingOnSyntax&lt;T&gt;;
 }
 </code></pre>
 <h4>Circular dependencies</h4>
 <p>InversifyJS is able to identify circular dependencies and will throw an exception to help you to
 identify the location of the problem if a circular dependency is detected:</p>
-<pre><code>Error: Circular dependency found between services: IKatana and INinja
+<pre><code class="language-ts">Error: Circular dependency found between services: IKatana and INinja
 </code></pre>
 <p>Plese refer to the <a href="https://github.com/inversify/InversifyJS/wiki">wiki</a> for additional details.</p>
-<h3>Live demo and examples</h3>
-<p>You can try InversifyJS online at <a href="https://tonicdev.com/remojansen/inversify-2.0.0-alpha.3">tonicdev.com</a>. Some integration examples are available in the <a href="https://github.com/inversify/Inversify-code-samples">official examples repository</a>.</p>
-
-<h3 id="testimonies">Testimonies</h3>
-<p><strong><a href="https://twitter.com/nkohari">Nate Kohari</a></strong> - Author of <a href="https://github.com/ninject/Ninject">Ninject</a></p>
-<blockquote>
-  <p><em>“Ninject author here. Nice work! I’ve taken a couple shots at creating DI frameworks for JavaScript and TypeScript, but the lack of RTTI really hinders things. The ES7 metadata gets us part of the way there (as you’ve discovered). Keep up the great work!”</em></p>
-</blockquote>
-
+<h3>Examples</h3>
+<p>Some integration examples are available in the <a href="https://github.com/inversify/Inversify-code-samples">official examples repository</a>.</p>
 <h3>Support</h3>
 <p>If you are experience any kind of issues we will be happy to help. You can report an issue using the
 <a href="https://github.com/inversify/InversifyJS/issues">issues page</a> or the
@@ -615,11 +829,8 @@ of the Software, and to permit persons to whom the Software is furnished to do s
 following conditions:</p>
 <p>The above copyright notice and this permission notice shall be included in all copies or substantial
 portions of the Software.</p>
-<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
-LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>     
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.</p>
+<p>IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>     
           </article>
         </div>
       </div>

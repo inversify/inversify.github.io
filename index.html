@@ -244,11 +244,11 @@ if you preffer it. The following code snippet implements the previous example wi
 }
 
 <span class="hljs-comment">// Declare as injectable and its dependencies</span>
-inversify.decorate(injectable(), Katana);
-inversify.decorate(injectable(), Shuriken);
-inversify.decorate(injectable(), Ninja);
-inversify.decorate(inject(TYPES.Katana), Ninja, <span class="hljs-number">0</span>);
-inversify.decorate(inject(TYPES.Shuriken), Ninja, <span class="hljs-number">1</span>);
+inversify.decorate(inversify.injectable(), Katana);
+inversify.decorate(inversify.injectable(), Shuriken);
+inversify.decorate(inversify.injectable(), Ninja);
+inversify.decorate(inversify.inject(TYPES.Katana), Ninja, <span class="hljs-number">0</span>);
+inversify.decorate(inversify.inject(TYPES.Shuriken), Ninja, <span class="hljs-number">1</span>);
 
 <span class="hljs-comment">// Declare bindings</span>
 <span class="hljs-keyword">var</span> kernel = <span class="hljs-keyword">new</span> inversify.Kernel();

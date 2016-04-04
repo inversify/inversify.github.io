@@ -144,3 +144,7 @@ pre {
 h4 {
     margin-top: 25px;
 }
+
+blockquote {
+    background-color: #eee;
+}

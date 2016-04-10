@@ -77,42 +77,41 @@
       <div class="row">
         <div class="col-md-12">
           <article class="well animated fadeInUp">
-<div class="col-md-4">
-    <h3>About</h3>
-    <p>InversifyJS is a powerful lightweight (4KB) pico inversion of control (IoC) container for TypeScript and JavaScript apps.
-    A pico IoC container uses a class constructor to identify and inject its dependencies.
-    InversifyJS has a friendly API and encourage the usage of the best OOP and IoC practices.</p>
-</div>
-<div class="col-md-4">
-    <h3>Motivation</h3>
-    <p>JavaScript applications are becoming larger and larger day after day.
-    InversifyJS has been designed to allow JavaScript developers to write code that adheres to the SOLID principles.</p>
-</div>
-<div class="col-md-4">
-    <h3>Philosophy</h3>
-    <p>InversifyJS has been developed with 3 main goals:</p>
-    <ol>
-    <li>
-    <p>Allow JavaScript developers to write code that adheres to the SOLID principles.</p>
-    </li>
-    <li>
-    <p>Facilitate and encourage the adherence to the best OOP and IoC practices.</p>
-    </li>
-    <li>
-    <p>Add as little runtime overhead as possible.</p>
-    </li>
-    </ol>
-</div>
+            <div class="col-md-4">
+                <h3>About</h3>
+                <p>InversifyJS is a powerful lightweight (4KB) pico inversion of control (IoC) container for TypeScript and JavaScript apps.
+                A pico IoC container uses a class constructor to identify and inject its dependencies.
+                InversifyJS has a friendly API and encourage the usage of the best OOP and IoC practices.</p>
+            </div>
+            <div class="col-md-4">
+                <h3>Motivation</h3>
+                <p>JavaScript applications are becoming larger and larger day after day.
+                InversifyJS has been designed to allow JavaScript developers to write code that adheres to the SOLID principles.</p>
+            </div>
+            <div class="col-md-4">
+                <h3>Philosophy</h3>
+                <p>InversifyJS has been developed with 3 main goals:</p>
+                <ol>
+                <li>
+                <p>Allow JavaScript developers to write code that adheres to the SOLID principles.</p>
+                </li>
+                <li>
+                <p>Facilitate and encourage the adherence to the best OOP and IoC practices.</p>
+                </li>
+                <li>
+                <p>Add as little runtime overhead as possible.</p>
+                </li>
+                </ol>
+            </div>
 <h3>Testimonies</h3>
 <p><strong><a href="https://twitter.com/nkohari">Nate Kohari</a></strong> - Author of <a href="https://github.com/ninject/Ninject">Ninject</a></p>
 <blockquote>
 <p><em>"Nice work! I've taken a couple shots at creating DI frameworks for JavaScript and TypeScript, but the lack of RTTI really hinders things.</em>
 <em>The ES7 metadata gets us part of the way there (as you've discovered). Keep up the great work!"</em></p>
 </blockquote>
-
 <h3>Installation</h3>
 <p>You can get the latest release and the type definitions using npm:</p>
-<pre><code class="language-sh">npm install inversify@<span class="hljs-number">2.0</span>.<span class="hljs-number">0</span>-alpha.<span class="hljs-number">8</span> --save
+<pre><code class="language-sh">npm install inversify@<span class="hljs-number">2.0</span>.<span class="hljs-number">0</span>-beta.<span class="hljs-number">1</span> --save
 </code></pre>
 <blockquote>
 <p><strong>Note</strong>: We have decided to <a href="https://twitter.com/nachocoloma/status/663622545162280960">drop support for bower</a> and tsd.</p>
@@ -121,11 +120,11 @@
 <pre><code class="language-ts">/// &lt;reference path="node_modules/inversify/type_definitions/inversify/inversify.d.ts" /&gt;
 </code></pre>
 <blockquote>
-<p><strong>Note</strong>: InversifyJS requires a modern JavaScript engine with support for the Promise, Reflect (with metadata) and Proxy objects. If your environment don't support one of these you will need to import a shim or polypill. Check out the <a href="https://github.com/inversify/InversifyJS/wiki/Environmemt-support-and-polyfills">Environment support and polyfills</a> page in the wiki to learn more.</p>
+<p><strong>Note</strong>: InversifyJS requires a modern JavaScript engine with support for the Promise, Reflect (with metadata) and Proxy objects.
+If your environment don't support one of these you will need to import a shim or polyfill. Check out the
+<a href="https://github.com/inversify/InversifyJS/blob/master/wiki/environment.md">Environment support and polyfills</a> page in the wiki to learn more.</p>
 </blockquote>
-
 <p>InversifyJS requires the following TypeScript compilation options in your <code>tsconfig.json</code> file:</p>
-
 <pre><code>{
   "compilerOptions": {
     "experimentalDecorators": true,
@@ -133,7 +132,6 @@
   }
 }
 </code></pre>
-
 <h3>The Basics (TypeScript)</h3>
 <p>Let’s take a look to the basic usage and APIs of InversifyJS with TypeScript:</p>
 <h4>Step 1: Declare your interfaces</h4>
@@ -210,7 +208,6 @@ kernel.bind&lt;IShuriken&gt;("IShuriken").to(Shuriken);
 
 export default kernel;
 </code></pre>
-
 <h4>Step 4: Resolve dependencies</h4>
 <p>You can use the method <code>get&lt;T&gt;</code> from the <code>Kernel</code> class to resolve a dependency.
 Remember that you should do this only in your <a href="http://blog.ploeh.dk/2011/07/28/CompositionRoot/">composition root</a>
@@ -273,10 +270,10 @@ kernel.bind(TYPES.Shuriken).to(Shuriken);
 <span class="hljs-keyword">var</span> ninja = kernel.get(TYPES.Ninja);
 <span class="hljs-keyword">return</span> ninja;
 </code></pre>
-<h3>Features (v2.0.0-alpha.8)</h3>
+<h3>Features</h3>
 <p>Let's take a look to the InversifyJS features!</p>
 <h4>Support for classes</h4>
-<p>InversifyJS allows your classes to have a direct dependency on other classes. When doing so you will need to use the <code>@injectavle</code> decorator but you will not be required to use the <code>@inject</code> decorator.</p>
+<p>InversifyJS allows your classes to have a direct dependency on other classes. When doing so you will need to use the <code>@injectable</code> decorator but you will not be required to use the <code>@inject</code> decorator.</p>
 <pre><code class="language-ts">import { Kernel, injectable, inject } from "inversify";
 
 @injectable()
@@ -595,7 +592,7 @@ kernel.applyMiddleware(logger);
      parentContext: [Circular],
      rootRequest: 
       Request {
-        service: 'INinja',
+        serviceIdentifier: 'INinja',
         parentContext: [Circular],
         parentRequest: null,
         target: null,
@@ -732,6 +729,30 @@ added to avoid <code>AMBIGUOUS_MATCH</code> errors:</p>
 kernel.bind&lt;IWeapon&gt;("IWeapon").to(Katana).whenTargetNamed("strong");
 kernel.bind&lt;IWeapon&gt;("IWeapon").to(Shuriken).whenTargetNamed("weak");
 </code></pre>
+<h4>Kernel.getAll<t>(), Kernel.getNamed<t>() &amp; Kernel.getTagged<t>()</t></t></t></h4>
+<p>The InversifyJS kernel provides some helpers to resolve multi-injections:</p>
+<pre><code class="language-ts">let kernel = new Kernel();
+kernel.bind&lt;IWeapon&gt;("IWeapon").to(Katana);
+kernel.bind&lt;IWeapon&gt;("IWeapon").to(Shuriken);
+
+let weapons = kernel.getAll&lt;IWeapon[]&gt;("IWeapon");
+</code></pre>
+<p>Named bindings:</p>
+<pre><code class="language-ts">let kernel = new Kernel();
+kernel.bind&lt;IWeapon&gt;("IWeapon").to(Katana).whenTargetNamed("japonese");
+kernel.bind&lt;IWeapon&gt;("IWeapon").to(Shuriken).whenTargetNamed("chinese");
+
+let katana = kernel.getNamed&lt;IWeapon&gt;("IWeapon", "japonese");
+let shuriken = kernel.getNamed&lt;IWeapon&gt;("IWeapon", "chinese");
+</code></pre>
+<p>And tagged bindings:</p>
+<pre><code class="language-ts">let kernel = new Kernel();
+kernel.bind&lt;IWeapon&gt;("IWeapon").to(Katana).whenTargetTagged("faction", "samurai");
+kernel.bind&lt;IWeapon&gt;("IWeapon").to(Shuriken).whenTargetTagged("faction", "ninja");
+
+let katana = kernel.getTagged&lt;IWeapon&gt;("IWeapon", "faction", "samurai");
+let shuriken = kernel.getTagged&lt;IWeapon&gt;("IWeapon", "faction", "ninja");
+</code></pre>
 <h4>Contextual bindings &amp; @paramNames</h4>
 <p>The <code>@paramName</code> decorator is used to access the names of the constructor arguments from a
 contextual constraint even when the code is compressed. The <code>constructor(katana, shuriken) { ...</code>
@@ -821,7 +842,7 @@ let whenAnyAncestorTaggedConstraint = (request: IRequest) =&gt; {
 identify the location of the problem if a circular dependency is detected:</p>
 <pre><code class="language-ts">Error: Circular dependency found between services: IKatana and INinja
 </code></pre>
-<p>Plese refer to the <a href="https://github.com/inversify/InversifyJS/wiki">wiki</a> for additional details.</p>
+<p>Plese refer to the <a href="https://github.com/inversify/InversifyJS/blob/master/wiki/readme.md">wiki</a> for additional details.</p>
 <h3>Examples</h3>
 <p>Some integration examples are available in the <a href="https://github.com/inversify/Inversify-code-samples">official examples repository</a>.</p>
 <h3>Support</h3>
@@ -831,7 +852,7 @@ identify the location of the problem if a circular dependency is detected:</p>
 <a href="http://stackoverflow.com/tags/inversifyjs">Stack overflow</a> using the <code>inversifyjs</code> tag.</p>
 <p>If you want to share your thoughts with the development team or join us you will be able to do so using the
 <a href="https://groups.google.com/forum/#!forum/inversifyjs">official the mailing list</a>. You can check out the
-<a href="https://github.com/inversify/InversifyJS/wiki">development wiki</a> and browse the
+<a href="https://github.com/inversify/InversifyJS/blob/master/wiki/readme.md">wiki</a> and browse the
 <a href="http://inversify.io/documentation/index.html">documented source code</a> to learn more about InversifyJS internals.</p>
 <h3>License</h3>
 <p>License under the MIT License (MIT)</p>
@@ -844,7 +865,7 @@ following conditions:</p>
 <p>The above copyright notice and this permission notice shall be included in all copies or substantial
 portions of the Software.</p>
 <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.</p>
-<p>IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>     
+<p>IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
           </article>
         </div>
       </div>

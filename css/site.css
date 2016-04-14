@@ -45,7 +45,7 @@ pre {
   width: 100%;
   line-height: 1.6;
   background-color: #fffdae;
-  padding: 1em 1em 1em 1em;
+  padding: 1em 1em 1em 1em !important;
   margin-right: -1em;
   overflow-x: auto;
   font-size: 14px;
@@ -53,7 +53,8 @@ pre {
   font-family: consolas;
   border: none;
   border-radius: 0px;
-  border-left: solid 3px #0074c1;
+  border: none !important;
+  border-left: solid 3px #0074c1 !important;
 }
 
 .btn-primary {

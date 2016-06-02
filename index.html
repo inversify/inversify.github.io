@@ -44,6 +44,7 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="./bower_components/animate.css/animate.min.css" />
     <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css" />
     <link href="http://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" https://cdn.rawgit.com/google/code-prettify/master/styles/desert.css" />
     <link rel="stylesheet" href="./css/site.css" />
@@ -55,9 +56,34 @@
     <![endif]-->
   </head>
   <body>
-    <a href="https://twitter.com/inversifyjs">
-      <img class="forkme fadeInRight animated" src="./img/twitter-ribbon.png" alt="Follow me on Twitter" />
-    </a>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">
+            &nbsp;&nbsp;InversifyJS 
+          </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="https://github.com/inversify/InversifyJS/blob/master/wiki/readme.md"><i class="fa fa-file-text-o" aria-hidden="true"></i> Docs</a></li>
+            <li><a href="#" onclick="javascript: alert('Coming soon!');"><i class="fa fa-terminal" aria-hidden="true"></i> Playground</a></li>
+            <li><a href="http://stackoverflow.com/questions/ask?tags=inversifyjs"><i class="fa fa-stack-overflow" aria-hidden="true"></i> Questions</a></li>
+            <li><a href="https://github.com/inversify/InversifyJS/issues"><i class="fa fa-bug" aria-hidden="true"></i> Issues</a></li>
+            <li><a href="https://gitter.im/inversify/InversifyJS"><i class="fa fa-life-ring" aria-hidden="true"></i> Support</a></li>
+            <li><a href="https://github.com/inversify/InversifyJS"><i class="fa fa-code-fork" aria-hidden="true"></i> Contribute</a></li>
+            <li><a href="https://twitter.com/inversifyjs"><i class="fa fa-twitter" aria-hidden="true"></i> Follow</a></li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
     <div class="custom-header animated fadeInDown">
       <div class="container">
         <div class="row">
@@ -81,28 +107,37 @@
           <article class="well animated fadeInUp">
             <div class="col-md-4">
                 <h3>About</h3>
-                <p>InversifyJS is a powerful lightweight (4KB) pico inversion of control (IoC) container for TypeScript and JavaScript apps.
-                A pico IoC container uses a class constructor to identify and inject its dependencies.
-                InversifyJS has a friendly API and encourage the usage of the best OOP and IoC practices.</p>
+                <p>
+                  InversifyJS is a lightweight (4KB) inversion of control (IoC) container for TypeScript and JavaScript apps. 
+                  A IoC container uses a class constructor to identify and inject its dependencies. 
+                </p>
+                <p>
+                  InversifyJS has a friendly API and encourage the usage of the best OOP and IoC practices.
+                </p>
             </div>
             <div class="col-md-4">
                 <h3>Motivation</h3>
-                <p>JavaScript applications are becoming larger and larger day after day.
-                InversifyJS has been designed to allow JavaScript developers to write code that adheres to the SOLID principles.</p>
+                <p>JavaScript now supports object oriented (OO) programming with class based inheritance. These features are great but the truth is that they are also
+                <a href="https://medium.com/@dan_abramov/how-to-use-classes-and-sleep-at-night-9af8de78ccb4">dangerous</a>.</p>
+                <p>We need a good OO design to protect ourselves from these threats. The problem is that OO design is difficult and that is exactly why we created InversifyJS.</p>
+                <p>InversifyJS is a tool that helps JavaScript developers to write code with a good OO design.</p>
             </div>
             <div class="col-md-4">
                 <h3>Philosophy</h3>
-                <p>InversifyJS has been developed with 3 main goals:</p>
+                <p>InversifyJS has been developed with 4 main goals:</p>
                 <ol>
-                <li>
-                <p>Allow JavaScript developers to write code that adheres to the SOLID principles.</p>
-                </li>
-                <li>
-                <p>Facilitate and encourage the adherence to the best OOP and IoC practices.</p>
-                </li>
-                <li>
-                <p>Add as little runtime overhead as possible.</p>
-                </li>
+                  <li>
+                    <p>Allow JavaScript developers to write code that adheres to the SOLID principles.</p>
+                  </li>
+                  <li>
+                    <p>Facilitate and encourage the adherence to the best OOP and IoC practices.</p>
+                  </li>
+                  <li>
+                    <p>Add as little runtime overhead as possible.</p>
+                  </li>
+                  <li>
+                    <p>Provide a <a href="https://github.com/inversify/InversifyJS/blob/master/wiki/ecosystem.md">state of the art development experience</a>.</p>
+                  </li>
                 </ol>
             </div>
             <h3>Status</h3>
@@ -309,7 +344,11 @@ Head to the <a href="https://github.com/inversify/InversifyJS/blob/master/wiki/b
       ga('send', 'pageview');
     </script>
     <script>
-      $(document).ready(function() { $("pre").addClass("prettyprint"); });
+      $(document).ready(function() { 
+        $("pre").addClass("prettyprint"); 
+        $(".leftMenu").height(window.innerHeight);
+        $(window).on("resize", function() { $(".leftMenu").height(window.innerHeight); });
+      });
     </script>
     <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?autoload=true&skin=tomorrow-night&lang=css"></script>
   </body>

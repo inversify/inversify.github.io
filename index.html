@@ -396,7 +396,7 @@ Head to the <a href="https://github.com/inversify/InversifyJS/blob/master/wiki/b
         }
         
         $(".basic_link").on("click", function(e) {
-            debugger;
+            e.preventDefault();
             var id = $(e.currentTarget).data("id");
             showSection(id);
         });

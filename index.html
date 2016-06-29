@@ -178,7 +178,7 @@
   </ul>
 </div>
   <div class="col-md-9">
-<div class="basic_section" id="step_1" style="display: none;">
+<div class="basic_section" id="step_1" style="display: block;">
 <h4 style="margin-top: 0px;">Installation</h4>
 <p>You can get the latest release and the type definitions using npm:</p>
 <pre class="prettyprint prettyprinted"><code><span class="pln">npm install inversify@2</span><span class="pun">.</span><span class="lit">0.0</span><span class="pun">-</span><span class="pln">beta</span><span class="pun">.</span><span class="lit">8</span><span class="pln"> inversify</span><span class="pun">-</span><span class="pln">dts reflect</span><span class="pun">-</span><span class="pln">metadata </span><span class="pun">--</span><span class="pln">save</span></code></pre>
@@ -295,10 +295,8 @@ kernel</span><span class="pun">.</span><span class="pln">bind</span><span class=
 </div>
   
   
-<div class="basic_section" id="step_5" style="display: block;">
-<h4 style="
-    margin-top: 0px;
-">Resolving dependencies</h4>
+<div class="basic_section" id="step_5" style="display: none;">
+<h4 style="margin-top: 0px;">Resolving dependencies</h4>
 <p>You can use the method <code>get&lt;T&gt;</code> from the <code>Kernel</code> class to resolve a dependency.
 Remember that you should do this only in your <a href="http://blog.ploeh.dk/2011/07/28/CompositionRoot/">composition root</a>
 to avoid the <a href="http://blog.ploeh.dk/2010/02/03/ServiceLocatorisanAnti-Pattern/">service locator anti-pattern</a>.</p>

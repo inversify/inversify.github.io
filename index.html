@@ -178,8 +178,9 @@
   </ul>
 </div>
   <div class="col-md-9">
+
 <div class="basic_section" id="step_1" style="display: block;">
-<h4 style="margin-top: 0px;">Installation</h4>
+<h4 style="margin-top: 5px;">Installation</h4>
 <p>You can get the latest release and the type definitions using npm:</p>
 <pre class="prettyprint prettyprinted"><code><span class="pln">npm install inversify@2</span><span class="pun">.</span><span class="lit">0.0</span><span class="pun">-</span><span class="pln">beta</span><span class="pun">.</span><span class="lit">8</span><span class="pln"> inversify</span><span class="pun">-</span><span class="pln">dts reflect</span><span class="pun">-</span><span class="pln">metadata </span><span class="pun">--</span><span class="pln">save</span></code></pre>
 <p>The InversifyJS type definitions are included in the inversify-dts npm package:</p>
@@ -205,8 +206,11 @@ If your environment don't support one of these you will need to import a shim or
   </span><span class="pun">}</span><span class="pln">
 </span><span class="pun">}</span></code></pre>
 </div> 
+
+
+
 <div class="basic_section" id="step_2" style="display: none;">
-<h4 style="margin-top: 0px;">Declaring interfaces</h4>
+<h4 style="margin-top: 5px;">Declaring interfaces</h4>
 <p>Our goal is to write code that adheres to the <a href="https://en.wikipedia.org/wiki/Dependency_inversion_principle">dependency inversion principle</a>.
 This means that we should "depend upon Abstractions and do not depend upon concretions".
 Let's start by declaring some interfaces (abstractions).</p>
@@ -227,7 +231,7 @@ Let's start by declaring some interfaces (abstractions).</p>
   
   
 <div class="basic_section" id="step_3" style="display: none;">
-<h4 style="margin-top: 0px;">Declaring classes and dependencies</h4>
+<h4 style="margin-top: 5px;">Declaring classes and dependencies</h4>
 <p>Let's continue by declaring some classes (concretions). The classes are implementations of the interfaces that we just declared. All the classes must be annotated with the <code>@injectable</code> decorator.</p>
 <p>When a class has a  dependency on an interface we also need to use the <code>@inject</code> decorator to define an identifier for the interface that will be available at runtime. In this case we will use the string literals <code>"IKatana"</code> and <code>"IShuriken"</code> as runtime identifiers.</p>
 <blockquote>
@@ -275,9 +279,7 @@ Let's start by declaring some interfaces (abstractions).</p>
   
   
 <div class="basic_section" id="step_4" style="display: none;">
-<h4 style="
-    margin-top: 0px;
-">Creating and configuring a Kernel</h4>
+<h4 style="margin-top: 5px;">Creating and configuring a Kernel</h4>
 <p>We recommend to do this in a file named <code>inversify.config.ts</code>. This is the only place in which there is some coupling.
 In the rest of your application your classes should be free of references to other classes.</p>
 <pre class="prettyprint prettyprinted"><code class="language-ts"><span class="kwd">import</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> </span><span class="typ">Kernel</span><span class="pln"> </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">from</span><span class="pln"> </span><span class="str">"inversify"</span><span class="pun">;</span><span class="pln">
@@ -296,7 +298,7 @@ kernel</span><span class="pun">.</span><span class="pln">bind</span><span class=
   
   
 <div class="basic_section" id="step_5" style="display: none;">
-<h4 style="margin-top: 0px;">Resolving dependencies</h4>
+<h4 style="margin-top: 5px;">Resolving dependencies</h4>
 <p>You can use the method <code>get&lt;T&gt;</code> from the <code>Kernel</code> class to resolve a dependency.
 Remember that you should do this only in your <a href="http://blog.ploeh.dk/2011/07/28/CompositionRoot/">composition root</a>
 to avoid the <a href="http://blog.ploeh.dk/2010/02/03/ServiceLocatorisanAnti-Pattern/">service locator anti-pattern</a>.</p>

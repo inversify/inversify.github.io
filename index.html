@@ -180,98 +180,129 @@
   <div class="col-md-9">
 
 <div class="basic_section" id="step_1" style="display: block;">
+
 <h4 style="margin-top: 5px;">Installation</h4>
 <p>You can get the latest release and the type definitions using npm:</p>
-<pre class="prettyprint prettyprinted"><code><span class="pln">npm install inversify@2</span><span class="pun">.</span><span class="lit">0.0</span><span class="pun">-</span><span class="pln">beta</span><span class="pun">.</span><span class="lit">8</span><span class="pln"> inversify</span><span class="pun">-</span><span class="pln">dts reflect</span><span class="pun">-</span><span class="pln">metadata </span><span class="pun">--</span><span class="pln">save</span></code></pre>
+<pre><code>npm install inversify@2.0.0-rc.1 reflect-metadata --save
+npm install inversify-dts --save-dev
+</code></pre>
+<p>You will also need the type definitions files for inversify and reflect-metadata.</p>
 <p>The InversifyJS type definitions are included in the inversify-dts npm package:</p>
-<pre class="prettyprint prettyprinted"><code class="language-ts"><span class="com">/// &lt;reference path="node_modules/inversify-dts/inversify/inversify.d.ts" /&gt;</span></code></pre>
+<pre><code class="language-ts">/// &lt;reference path="node_modules/inversify-dts/inversify/inversify.d.ts" /&gt;
+</code></pre>
 <p>The reflect-metadata type definitions are included in the npm package:</p>
-<pre class="prettyprint prettyprinted"><code class="language-ts"><span class="com">/// &lt;reference path="node_modules/reflect-metadata/reflect-metadata.d.ts" /&gt;</span></code></pre>
-<p>If you are targeting ES5 you will get an error:</p>
+<pre><code class="language-ts">/// &lt;reference path="node_modules/reflect-metadata/reflect-metadata.d.ts" /&gt;
+</code></pre>
+<p>InversifyJS requires a modern JavaScript engine with support for the Promise, Reflect (with metadata) and Proxy objects.
+If your environment don't support one of these you will need to import a shim or polyfill. If you are targeting ES5 you will get the following error:</p>
 <blockquote>
 <p>TypeScript error: node_modules/inversify-dts/inversify/inversify.d.ts(108,13): Error TS2304: Cannot find name 'Promise'.</p>
 </blockquote>
 <p>You can solve this problem by installing type definitions for the Promise API. If you are working on node the node type definitions already include the required definitions. If you are working on a browser app you can use the bluebird type definitions and polyfill:</p>
-<pre class="prettyprint prettyprinted"><code><span class="pln">$ typings install </span><span class="pun">--</span><span class="pln">save </span><span class="pun">--</span><span class="kwd">global</span><span class="pln"> dt</span><span class="pun">~</span><span class="pln">bluebird</span></code></pre>
-<p>InversifyJS requires a modern JavaScript engine with support for the Promise, Reflect (with metadata) and Proxy objects.
-If your environment don't support one of these you will need to import a shim or polyfill. Check out the
-<a href="https://github.com/inversify/InversifyJS/blob/master/wiki/environment.md">Environment support and polyfills</a> page in the wiki to learn more.</p>
+<pre><code>$ typings install --save --global dt~bluebird
+</code></pre>
+<p>Check out the <a href="https://github.com/inversify/InversifyJS/blob/master/wiki/environment.md">Environment support and polyfills</a> page in the wiki to learn more.</p>
 <p>The relect-metadata polyfill can be importing as follows:</p>
-<pre class="prettyprint prettyprinted"><code class="language-ts"><span class="kwd">import</span><span class="pln"> </span><span class="str">"relect-metadata"</span><span class="pun">;</span></code></pre>
+<pre><code class="language-ts">import "reflect-metadata";
+</code></pre>
+<blockquote>
+<p><strong>The <code>reflect-metadata</code> polyfill should be imported only once in your entire application</strong> because the Reflect object is mean to be a global singleton. More details about this can be found <a href="https://github.com/inversify/InversifyJS/issues/262#issuecomment-227593844">here</a>.</p>
+</blockquote>
 <p>InversifyJS requires the following TypeScript compilation options in your <code>tsconfig.json</code> file:</p>
-<pre class="prettyprint prettyprinted"><code><span class="pun">{</span><span class="pln">
-  </span><span class="str">"compilerOptions"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
-    </span><span class="str">"experimentalDecorators"</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">,</span><span class="pln">
-    </span><span class="str">"emitDecoratorMetadata"</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">true</span><span class="pln">
-  </span><span class="pun">}</span><span class="pln">
-</span><span class="pun">}</span></code></pre>
+<pre><code>{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  }
+}
+</code></pre>
+
 </div> 
 
 
 
 <div class="basic_section" id="step_2" style="display: none;">
 <h4 style="margin-top: 5px;">Declaring interfaces</h4>
+
 <p>Our goal is to write code that adheres to the <a href="https://en.wikipedia.org/wiki/Dependency_inversion_principle">dependency inversion principle</a>.
 This means that we should "depend upon Abstractions and do not depend upon concretions".
 Let's start by declaring some interfaces (abstractions).</p>
-<pre class="prettyprint prettyprinted"><code class="language-ts"><span class="kwd">interface</span><span class="pln"> </span><span class="typ">INinja</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
-    fight</span><span class="pun">():</span><span class="pln"> </span><span class="kwd">string</span><span class="pun">;</span><span class="pln">
-    sneak</span><span class="pun">():</span><span class="pln"> </span><span class="kwd">string</span><span class="pun">;</span><span class="pln">
-</span><span class="pun">}</span><span class="pln">
+<pre><code class="language-ts">interface Warrior {
+    fight(): string;
+    sneak(): string;
+}
 
-</span><span class="kwd">interface</span><span class="pln"> </span><span class="typ">IKatana</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
-    hit</span><span class="pun">():</span><span class="pln"> </span><span class="kwd">string</span><span class="pun">;</span><span class="pln">
-</span><span class="pun">}</span><span class="pln">
+interface Weapon {
+    hit(): string;
+}
 
-</span><span class="kwd">interface</span><span class="pln"> </span><span class="typ">IShuriken</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
-    </span><span class="kwd">throw</span><span class="pun">():</span><span class="pln"> </span><span class="kwd">string</span><span class="pun">;</span><span class="pln">
-</span><span class="pun">}</span></code></pre>
+interface ThrowableWeapon {
+    throw(): string;
+}
+</code></pre>
+<pre><code class="language-ts">let TYPES = {
+    Warrior: Symbol("Warrior"),
+    Weapon: Symbol("Weapon"),
+    ThrowableWeapon: Symbol("ThrowableWeapon")
+};
+
+export default TYPES;
+
+</code></pre>
+
 </div>
   
   
   
 <div class="basic_section" id="step_3" style="display: none;">
+
 <h4 style="margin-top: 5px;">Declaring classes and dependencies</h4>
+
 <p>Let's continue by declaring some classes (concretions). The classes are implementations of the interfaces that we just declared. All the classes must be annotated with the <code>@injectable</code> decorator.</p>
-<p>When a class has a  dependency on an interface we also need to use the <code>@inject</code> decorator to define an identifier for the interface that will be available at runtime. In this case we will use the string literals <code>"IKatana"</code> and <code>"IShuriken"</code> as runtime identifiers.</p>
+<p>When a class has a  dependency on an interface we also need to use the <code>@inject</code> decorator to define an identifier for the interface that will be available at runtime. In this case we will use the Symbols <code>Symbol("Weapon")</code> and <code>Symbol("ThrowableWeapon")</code> as runtime identifiers.</p>
 <blockquote>
-<p><strong>Note</strong>: InversifyJS also support the usage of Classes and Symbols (continue reading to learn more about this).</p>
+<p><strong>Note</strong>: It is recommended to use Symbols but InversifyJS also support the usage of Classes and string literals (please refer to the features section to learn more).</p>
 </blockquote>
-<pre class="prettyprint prettyprinted"><code class="language-ts"><span class="kwd">import</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> injectable</span><span class="pun">,</span><span class="pln"> inject </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">from</span><span class="pln"> </span><span class="str">"inversify"</span><span class="pun">;</span><span class="pln">
-</span><span class="kwd">import</span><span class="pln"> </span><span class="str">"reflect-metadata"</span><span class="pun">;</span><span class="pln">
+<pre><code class="language-ts">import { injectable, inject } from "inversify";
+import "reflect-metadata";
+import TYPES from "./types";
 
-</span><span class="lit">@injectable</span><span class="pun">()</span><span class="pln">
-</span><span class="kwd">class</span><span class="pln"> </span><span class="typ">Katana</span><span class="pln"> </span><span class="kwd">implements</span><span class="pln"> </span><span class="typ">IKatana</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
-    </span><span class="kwd">public</span><span class="pln"> hit</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
-        </span><span class="kwd">return</span><span class="pln"> </span><span class="str">"cut!"</span><span class="pun">;</span><span class="pln">
-    </span><span class="pun">}</span><span class="pln">
-</span><span class="pun">}</span><span class="pln">
+@injectable()
+class Katana implements Weapon {
+    public hit() {
+        return "cut!";
+    }
+}
 
-</span><span class="lit">@injectable</span><span class="pun">()</span><span class="pln">
-</span><span class="kwd">class</span><span class="pln"> </span><span class="typ">Shuriken</span><span class="pln"> </span><span class="kwd">implements</span><span class="pln"> </span><span class="typ">IShuriken</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
-    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">throw</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
-        </span><span class="kwd">return</span><span class="pln"> </span><span class="str">"hit!"</span><span class="pun">;</span><span class="pln">
-    </span><span class="pun">}</span><span class="pln">
-</span><span class="pun">}</span><span class="pln">
+@injectable()
+class Shuriken implements ThrowableWeapon {
+    public throw() {
+        return "hit!";
+    }
+}
 
-</span><span class="lit">@injectable</span><span class="pun">()</span><span class="pln">
-</span><span class="kwd">class</span><span class="pln"> </span><span class="typ">Ninja</span><span class="pln"> </span><span class="kwd">implements</span><span class="pln"> </span><span class="typ">INinja</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+@injectable()
+class Ninja implements Ninja {
 
-    </span><span class="kwd">private</span><span class="pln"> _katana</span><span class="pun">:</span><span class="pln"> </span><span class="typ">IKatana</span><span class="pun">;</span><span class="pln">
-    </span><span class="kwd">private</span><span class="pln"> _shuriken</span><span class="pun">:</span><span class="pln"> </span><span class="typ">IShuriken</span><span class="pun">;</span><span class="pln">
+    private _katana: Weapon;
+    private _shuriken: ThrowableWeapon;
 
-    </span><span class="kwd">public</span><span class="pln"> constructor</span><span class="pun">(</span><span class="pln">
-        </span><span class="lit">@inject</span><span class="pun">(</span><span class="str">"IKatana"</span><span class="pun">)</span><span class="pln"> katana</span><span class="pun">:</span><span class="pln"> </span><span class="typ">IKatana</span><span class="pun">,</span><span class="pln">
-        </span><span class="lit">@inject</span><span class="pun">(</span><span class="str">"IShuriken"</span><span class="pun">)</span><span class="pln"> shuriken</span><span class="pun">:</span><span class="pln"> </span><span class="typ">IShuriken</span><span class="pln">
-    </span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
-        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">_katana </span><span class="pun">=</span><span class="pln"> katana</span><span class="pun">;</span><span class="pln">
-        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">_shuriken </span><span class="pun">=</span><span class="pln"> shuriken</span><span class="pun">;</span><span class="pln">
-    </span><span class="pun">}</span><span class="pln">
+    public constructor(
+        @inject(TYPES.Weapon) katana: Weapon,
+        @inject(TYPES.ThrowableWeapon) shuriken: ThrowableWeapon
+    ) {
+        this._katana = katana;
+        this._shuriken = shuriken;
+    }
 
-    </span><span class="kwd">public</span><span class="pln"> fight</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">_katana</span><span class="pun">.</span><span class="pln">hit</span><span class="pun">();</span><span class="pln"> </span><span class="pun">};</span><span class="pln">
-    </span><span class="kwd">public</span><span class="pln"> sneak</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">_shuriken</span><span class="pun">.</span><span class="kwd">throw</span><span class="pun">();</span><span class="pln"> </span><span class="pun">};</span><span class="pln">
+    public fight() { return this._katana.hit(); };
+    public sneak() { return this._shuriken.throw(); };
 
-</span><span class="pun">}</span></code></pre>
+}
+
+export { Ninja, Katana, Shuriken };
+
+</code></pre>
   
 </div>
   
@@ -280,37 +311,41 @@ Let's start by declaring some interfaces (abstractions).</p>
   
 <div class="basic_section" id="step_4" style="display: none;">
 <h4 style="margin-top: 5px;">Creating and configuring a Kernel</h4>
+
 <p>We recommend to do this in a file named <code>inversify.config.ts</code>. This is the only place in which there is some coupling.
 In the rest of your application your classes should be free of references to other classes.</p>
-<pre class="prettyprint prettyprinted"><code class="language-ts"><span class="kwd">import</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> </span><span class="typ">Kernel</span><span class="pln"> </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">from</span><span class="pln"> </span><span class="str">"inversify"</span><span class="pun">;</span><span class="pln">
+<pre><code class="language-ts">import { Kernel } from "inversify";
+import TYPES from "./types";
+import { Ninja, Katana, Shuriken } from "./entities";
 
-</span><span class="kwd">import</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> </span><span class="typ">Ninja</span><span class="pln"> </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">from</span><span class="pln"> </span><span class="str">"./entities/ninja"</span><span class="pun">;</span><span class="pln">
-</span><span class="kwd">import</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> </span><span class="typ">Katana</span><span class="pln"> </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">from</span><span class="pln"> </span><span class="str">"./entities/katana"</span><span class="pun">;</span><span class="pln">
-</span><span class="kwd">import</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> </span><span class="typ">Shuriken</span><span class="pun">}</span><span class="pln"> </span><span class="kwd">from</span><span class="pln"> </span><span class="str">"./entities/shuriken"</span><span class="pun">;</span><span class="pln">
+var kernel = new Kernel();
+kernel.bind&lt;Warrior&gt;(TYPES.Warrior).to(Ninja);
+kernel.bind&lt;Weapon&gt;(TYPES.Weapon).to(Katana);
+kernel.bind&lt;ThrowableWeapon&gt;(TYPES.ThrowableWeapon).to(Shuriken);
 
-</span><span class="kwd">var</span><span class="pln"> kernel </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Kernel</span><span class="pun">();</span><span class="pln">
-kernel</span><span class="pun">.</span><span class="pln">bind</span><span class="pun">&lt;</span><span class="typ">INinja</span><span class="pun">&gt;(</span><span class="str">"INinja"</span><span class="pun">).</span><span class="pln">to</span><span class="pun">(</span><span class="typ">Ninja</span><span class="pun">);</span><span class="pln">
-kernel</span><span class="pun">.</span><span class="pln">bind</span><span class="pun">&lt;</span><span class="typ">IKatana</span><span class="pun">&gt;(</span><span class="str">"IKatana"</span><span class="pun">).</span><span class="pln">to</span><span class="pun">(</span><span class="typ">Katana</span><span class="pun">);</span><span class="pln">
-kernel</span><span class="pun">.</span><span class="pln">bind</span><span class="pun">&lt;</span><span class="typ">IShuriken</span><span class="pun">&gt;(</span><span class="str">"IShuriken"</span><span class="pun">).</span><span class="pln">to</span><span class="pun">(</span><span class="typ">Shuriken</span><span class="pun">);</span><span class="pln">
+export default kernel;
+</code></pre>
 
-</span><span class="kwd">export</span><span class="pln"> </span><span class="kwd">default</span><span class="pln"> kernel</span><span class="pun">;</span></code></pre>
 </div>
   
   
 <div class="basic_section" id="step_5" style="display: none;">
 <h4 style="margin-top: 5px;">Resolving dependencies</h4>
+
 <p>You can use the method <code>get&lt;T&gt;</code> from the <code>Kernel</code> class to resolve a dependency.
 Remember that you should do this only in your <a href="http://blog.ploeh.dk/2011/07/28/CompositionRoot/">composition root</a>
 to avoid the <a href="http://blog.ploeh.dk/2010/02/03/ServiceLocatorisanAnti-Pattern/">service locator anti-pattern</a>.</p>
-<pre class="prettyprint prettyprinted"><code class="language-ts"><span class="kwd">import</span><span class="pln"> kernel </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">from</span><span class="pln"> </span><span class="str">"./inversify.config"</span><span class="pun">;</span><span class="pln">
+<pre><code class="language-ts">import kernel = from "./inversify.config";
 
-</span><span class="kwd">var</span><span class="pln"> ninja </span><span class="pun">=</span><span class="pln"> kernel</span><span class="pun">.</span><span class="kwd">get</span><span class="pun">&lt;</span><span class="typ">INinja</span><span class="pun">&gt;(</span><span class="str">"INinja"</span><span class="pun">);</span><span class="pln">
+var ninja = kernel.get&lt;Warrior&gt;(TYPES.Warrior);
 
-expect</span><span class="pun">(</span><span class="pln">ninja</span><span class="pun">.</span><span class="pln">fight</span><span class="pun">()).</span><span class="pln">eql</span><span class="pun">(</span><span class="str">"cut!"</span><span class="pun">);</span><span class="pln"> </span><span class="com">// true</span><span class="pln">
-expect</span><span class="pun">(</span><span class="pln">ninja</span><span class="pun">.</span><span class="pln">sneak</span><span class="pun">()).</span><span class="pln">eql</span><span class="pun">(</span><span class="str">"hit!"</span><span class="pun">);</span><span class="pln"> </span><span class="com">// true</span></code></pre>
-<p>As we can see the <code>IKatana</code> and <code>IShuriken</code> were successfully resolved and injected into <code>Ninja</code>.</p>
+expect(ninja.fight()).eql("cut!"); // true
+expect(ninja.sneak()).eql("hit!"); // true
+</code></pre>
+<p>As we can see the <code>Katana</code> and <code>Shuriken</code> were successfully resolved and injected into <code>Ninja</code>.</p>
 <p>InversifyJS supports ES5 and ES6 and can work without TypeScript.
 Head to the <a href="https://github.com/inversify/InversifyJS/blob/master/wiki/basic_js_example.md"><strong>JavaScript example</strong></a> to learn more!</p>
+
 </div>
   
   

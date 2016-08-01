@@ -144,3 +144,34 @@ h4 {
 blockquote {
     background-color: #eee;
 }
+
+.link {
+  cursor: pointer
+}
+
+.mainfeatures img {
+  width: 100px;
+  margin: 15px;
+}
+
+.mainfeatures .item {
+  text-align: center;
+}
+
+.mainfeatures p {
+  text-align: left;
+}
+
+.mainfeatures h3 {
+  text-align: left;
+}
+
+.devtools {
+  text-align: center;
+}
+
+.devtools img {
+  width: 80%;
+  margin-bottom: 15px;
+  margin-top: 15px;
+}

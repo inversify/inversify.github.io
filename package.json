@@ -4,7 +4,7 @@
   "description": "InversifyJS official website",
   "main": "index.html",
   "scripts": {
-    "test": "none"
+    "test": "echo 'nothing to test'"
   },
   "repository": {
     "type": "git",

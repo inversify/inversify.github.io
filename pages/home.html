@@ -101,47 +101,42 @@
 <div class="basic_section" id="step_1" style="display: block;">
 
 <h4 style="margin-top: 5px;">Installation</h4>
+
 <p>You can get the latest release and the type definitions using npm:</p>
-<pre><code>npm install inversify@2.0.0-rc.1 reflect-metadata --save
-npm install inversify-dts --save-dev
+<pre><code>npm install inversify reflect-metadata --save
 </code></pre>
-<p>You will also need the type definitions files for inversify and reflect-metadata.</p>
-<p>The InversifyJS type definitions are included in the inversify-dts npm package:</p>
-<pre><code class="language-ts">/// &lt;reference path="node_modules/inversify-dts/inversify/inversify.d.ts" /&gt;
-</code></pre>
-<p>The reflect-metadata type definitions are included in the npm package:</p>
-<pre><code class="language-ts">/// &lt;reference path="node_modules/reflect-metadata/reflect-metadata.d.ts" /&gt;
-</code></pre>
-<p>InversifyJS requires a modern JavaScript engine with support for the Promise, Reflect (with metadata) and Proxy objects.
-If your environment don't support one of these you will need to import a shim or polyfill. If you are targeting ES5 you will get the following error:</p>
-<blockquote>
-<p>TypeScript error: node_modules/inversify-dts/inversify/inversify.d.ts(108,13): Error TS2304: Cannot find name 'Promise'.</p>
-</blockquote>
-<p>You can solve this problem by installing type definitions for the Promise API. If you are working on node the node type definitions already include the required definitions. If you are working on a browser app you can use the bluebird type definitions and polyfill:</p>
-<pre><code>$ typings install --save --global dt~bluebird
-</code></pre>
-<p>Check out the <a href="https://github.com/inversify/InversifyJS/blob/master/wiki/environment.md">Environment support and polyfills</a> page in the wiki to learn more.</p>
-<p>The relect-metadata polyfill can be importing as follows:</p>
-<pre><code class="language-ts">import "reflect-metadata";
-</code></pre>
-<blockquote>
-<p><strong>The <code>reflect-metadata</code> polyfill should be imported only once in your entire application</strong> because the Reflect object is mean to be a global singleton. More details about this can be found <a href="https://github.com/inversify/InversifyJS/issues/262#issuecomment-227593844">here</a>.</p>
-</blockquote>
-<p>InversifyJS requires the following TypeScript compilation options in your <code>tsconfig.json</code> file:</p>
-<pre><code>{
-  "compilerOptions": {
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
-  }
+<p>The InversifyJS type definitions are included in the inversify npm package.
+InversifyJS requires TypeScript 2.0 and the <code>experimentalDecorators</code>, <code>emitDecoratorMetadata</code>, <code>types</code> and <code>lib</code>
+compilation options in your <code>tsconfig.json</code> file:</p>
+<pre><code class="language-js">{
+    <span class="hljs-string">"compilerOptions"</span>: {
+        <span class="hljs-string">"target"</span>: <span class="hljs-string">"es5"</span>,
+        <span class="hljs-string">"lib"</span>: [<span class="hljs-string">"es6"</span>, <span class="hljs-string">"dom"</span>],
+        <span class="hljs-string">"types"</span>: [<span class="hljs-string">"reflect-metadata"</span>],
+        <span class="hljs-string">"module"</span>: <span class="hljs-string">"commonjs"</span>,
+        <span class="hljs-string">"moduleResolution"</span>: <span class="hljs-string">"node"</span>,
+        <span class="hljs-string">"experimentalDecorators"</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-string">"emitDecoratorMetadata"</span>: <span class="hljs-literal">true</span>
+    }
 }
 </code></pre>
+<p>InversifyJS requires a modern JavaScript engine with support for:</p>
+<ul>
+<li><a href="https://github.com/rbuckton/ReflectDecorators/blob/master/spec/metadata.md">Reflect metadata</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a> (Only required if using <a href="https://github.com/inversify/InversifyJS#injecting-a-provider-asynchronous-factory">provider injection</a>)</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy">Proxy</a> (Only required if using <a href="https://github.com/inversify/InversifyJS/blob/master/wiki/activation_handler.md">activation handlers</a>)</li>
+</ul>
+<p>If your environment don't support one of these you will need to import a shim or polyfill.</p>
+<p>Check out the <a href="https://github.com/inversify/InversifyJS/blob/master/wiki/environment.md">Environment support and polyfills</a>
+page in the wiki and the <a href="https://github.com/inversify/inversify-basic-example">Basic example</a> to learn more.</p>
+
 
 </div> 
 
 
 
 <div class="basic_section" id="step_2" style="display: none;">
-<h4 style="margin-top: 5px;">Declaring interfaces</h4>
+    <h4 style="margin-top: 5px;">Declaring interfaces</h4>
 
 <p>Our goal is to write code that adheres to the <a href="https://en.wikipedia.org/wiki/Dependency_inversion_principle">dependency inversion principle</a>.
 This means that we should "depend upon Abstractions and do not depend upon concretions".
@@ -159,6 +154,7 @@ interface ThrowableWeapon {
     throw(): string;
 }
 </code></pre>
+<p>InversifyJS need to use the type as identifiers at runtime. We use symbols as identifiers but you can also use classes and or string literals.</p>
 <pre><code class="language-ts">let TYPES = {
     Warrior: Symbol("Warrior"),
     Weapon: Symbol("Weapon"),
@@ -168,6 +164,10 @@ interface ThrowableWeapon {
 export default TYPES;
 
 </code></pre>
+<blockquote>
+<p><strong>Note</strong>: It is recommended to use Symbols but InversifyJS also support the usage of Classes and string literals (please refer to the features section to learn more).</p>
+</blockquote>    
+
 
 </div>
   
@@ -179,9 +179,6 @@ export default TYPES;
 
 <p>Let's continue by declaring some classes (concretions). The classes are implementations of the interfaces that we just declared. All the classes must be annotated with the <code>@injectable</code> decorator.</p>
 <p>When a class has a  dependency on an interface we also need to use the <code>@inject</code> decorator to define an identifier for the interface that will be available at runtime. In this case we will use the Symbols <code>Symbol("Weapon")</code> and <code>Symbol("ThrowableWeapon")</code> as runtime identifiers.</p>
-<blockquote>
-<p><strong>Note</strong>: It is recommended to use Symbols but InversifyJS also support the usage of Classes and string literals (please refer to the features section to learn more).</p>
-</blockquote>
 <pre><code class="language-ts">import { injectable, inject } from "inversify";
 import "reflect-metadata";
 import TYPES from "./types";
@@ -201,7 +198,7 @@ class Shuriken implements ThrowableWeapon {
 }
 
 @injectable()
-class Ninja implements Ninja {
+class Ninja implements Warrior {
 
     private _katana: Weapon;
     private _shuriken: ThrowableWeapon;
@@ -220,8 +217,18 @@ class Ninja implements Ninja {
 }
 
 export { Ninja, Katana, Shuriken };
-
 </code></pre>
+<p>If you prefer it you can use property injection instead of constructor injection so you don't have to declare the class constructor:</p>
+<pre><code class="language-ts">@injectable()
+class Ninja implements Warrior {
+    @inject(TYPES.Weapon) private _katana: Weapon;
+    @inject(TYPES.ThrowableWeapon) private _shuriken: ThrowableWeapon;
+    public fight() { return this._katana.hit(); };
+    public sneak() { return this._shuriken.throw(); };
+}
+</code></pre>
+
+
   
 </div>
   
@@ -264,6 +271,7 @@ expect(ninja.sneak()).eql("hit!"); // true
 <p>As we can see the <code>Katana</code> and <code>Shuriken</code> were successfully resolved and injected into <code>Ninja</code>.</p>
 <p>InversifyJS supports ES5 and ES6 and can work without TypeScript.
 Head to the <a href="https://github.com/inversify/InversifyJS/blob/master/wiki/basic_js_example.md"><strong>JavaScript example</strong></a> to learn more!</p>
+
 
 </div>
   

@@ -92,7 +92,7 @@
     <li role="presentation"><a class="basic_link" data-id="step_1" href="#">1. Installation</a></li>
     <li role="presentation"><a class="basic_link" data-id="step_2" href="#">2. Declaring interfaces</a></li>
     <li role="presentation"><a class="basic_link" data-id="step_3" href="#">3. Declare classes and dependencies</a></li>
-    <li role="presentation"><a class="basic_link" data-id="step_4" href="#">4. Creating and configuring a Kernel</a></li>
+    <li role="presentation"><a class="basic_link" data-id="step_4" href="#">4. Creating and configuring a Container</a></li>
     <li role="presentation"><a class="basic_link" data-id="step_5" href="#">5. Resolving dependencies</a></li>
   </ul>
 </div>
@@ -122,10 +122,12 @@ compilation options in your <code>tsconfig.json</code> file:</p>
 </code></pre>
 <p>InversifyJS requires a modern JavaScript engine with support for:</p>
 <ul>
-<li><a href="https://github.com/rbuckton/ReflectDecorators/blob/master/spec/metadata.md">Reflect metadata</a></li>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a> (Only required if using <a href="https://github.com/inversify/InversifyJS#injecting-a-provider-asynchronous-factory">provider injection</a>)</li>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy">Proxy</a> (Only required if using <a href="https://github.com/inversify/InversifyJS/blob/master/wiki/activation_handler.md">activation handlers</a>)</li>
+    <li><a href="https://github.com/rbuckton/ReflectDecorators/blob/master/spec/metadata.md">Reflect metadata</a></li>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map">Map</a></li>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a> (Only required if using <a href="https://github.com/inversify/InversifyJS#injecting-a-provider-asynchronous-factory">provider injection</a>)</li>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy">Proxy</a> (Only required if using <a href="https://github.com/inversify/InversifyJS/blob/master/wiki/activation_handler.md">activation handlers</a>)</li>
 </ul>
+<p><strong>The <code>reflect-metadata</code> polyfill should be imported only once in your entire application</strong> because the Reflect object is mean to be a global singleton. More details about this can be found <a href="https://github.com/inversify/InversifyJS/issues/262#issuecomment-227593844">here</a>.</p>
 <p>If your environment don't support one of these you will need to import a shim or polyfill.</p>
 <p>Check out the <a href="https://github.com/inversify/InversifyJS/blob/master/wiki/environment.md">Environment support and polyfills</a>
 page in the wiki and the <a href="https://github.com/inversify/inversify-basic-example">Basic example</a> to learn more.</p>
@@ -236,20 +238,20 @@ class Ninja implements Warrior {
   
   
 <div class="basic_section" id="step_4" style="display: none;">
-<h4 style="margin-top: 5px;">Creating and configuring a Kernel</h4>
+<h4 style="margin-top: 5px;">Creating and configuring a Container</h4>
 
 <p>We recommend to do this in a file named <code>inversify.config.ts</code>. This is the only place in which there is some coupling.
 In the rest of your application your classes should be free of references to other classes.</p>
-<pre><code class="language-ts">import { Kernel } from "inversify";
+<pre><code class="language-ts">import { Container } from "inversify";
 import TYPES from "./types";
 import { Ninja, Katana, Shuriken } from "./entities";
 
-var kernel = new Kernel();
-kernel.bind&lt;Warrior&gt;(TYPES.Warrior).to(Ninja);
-kernel.bind&lt;Weapon&gt;(TYPES.Weapon).to(Katana);
-kernel.bind&lt;ThrowableWeapon&gt;(TYPES.ThrowableWeapon).to(Shuriken);
+var container = new Container();
+container.bind&lt;Warrior&gt;(TYPES.Warrior).to(Ninja);
+container.bind&lt;Weapon&gt;(TYPES.Weapon).to(Katana);
+container.bind&lt;ThrowableWeapon&gt;(TYPES.ThrowableWeapon).to(Shuriken);
 
-export default kernel;
+export default container;
 </code></pre>
 
 </div>
@@ -258,12 +260,12 @@ export default kernel;
 <div class="basic_section" id="step_5" style="display: none;">
 <h4 style="margin-top: 5px;">Resolving dependencies</h4>
 
-<p>You can use the method <code>get&lt;T&gt;</code> from the <code>Kernel</code> class to resolve a dependency.
+<p>You can use the method <code>get&lt;T&gt;</code> from the <code>Container</code> class to resolve a dependency.
 Remember that you should do this only in your <a href="http://blog.ploeh.dk/2011/07/28/CompositionRoot/">composition root</a>
 to avoid the <a href="http://blog.ploeh.dk/2010/02/03/ServiceLocatorisanAnti-Pattern/">service locator anti-pattern</a>.</p>
-<pre><code class="language-ts">import kernel = from "./inversify.config";
+<pre><code class="language-ts">import container = from "./inversify.config";
 
-var ninja = kernel.get&lt;Warrior&gt;(TYPES.Warrior);
+var ninja = container.get&lt;Warrior&gt;(TYPES.Warrior);
 
 expect(ninja.fight()).eql("cut!"); // true
 expect(ninja.sneak()).eql("hit!"); // true
@@ -320,28 +322,30 @@ Head to the <a href="https://github.com/inversify/InversifyJS/blob/master/wiki/b
 
 <p>InversifyJS is powerful IoC container and supports the following features:</p>
 <ul>
-  <li><a href="https://github.com/inversify/InversifyJS/blob/master/wiki/classes_as_id.md">Support for classes</a></li>
-  <li><a href="https://github.com/inversify/InversifyJS/blob/master/wiki/symbols_as_id.md">Support for Symbols</a></li>
-  <li><a href="https://github.com/inversify/InversifyJS/blob/master/wiki/kernel_modules.md">Declaring kernel modules</a></li>
-  <li><a href="https://github.com/inversify/InversifyJS/blob/master/wiki/kernel_snapshots.md">Kernel snapshots</a></li>
-  <li><a href="https://github.com/inversify/InversifyJS/blob/master/wiki/scope.md">Controlling the scope of the dependencies</a></li>
-  <li><a href="https://github.com/inversify/InversifyJS/blob/master/wiki/value_injection.md">Injecting a constant or dynamic value</a></li>
-  <li><a href="https://github.com/inversify/InversifyJS/blob/master/wiki/constructor_injection.md">Injecting a class constructor</a></li>
-  <li><a href="https://github.com/inversify/InversifyJS/blob/master/wiki/factory_injection.md">Injecting a Factory</a></li>
-  <li><a href="https://github.com/inversify/InversifyJS/blob/master/wiki/auto_factory.md">Auto factory</a></li>
-  <li><a href="https://github.com/inversify/InversifyJS/blob/master/wiki/provider_injection.md">Injecting a Provider (asynchronous Factory)</a></li>
-  <li><a href="https://github.com/inversify/InversifyJS/blob/master/wiki/activation_handler.md">Activation handler</a></li>
-  <li><a href="https://github.com/inversify/InversifyJS/blob/master/wiki/middleware.md">Middleware</a></li>
-  <li><a href="https://github.com/inversify/InversifyJS/blob/master/wiki/multi_injection.md">Multi-injection</a></li>
-  <li><a href="https://github.com/inversify/InversifyJS/blob/master/wiki/tagged_bindings.md">Tagged bindings</a></li>
-  <li><a href="https://github.com/inversify/InversifyJS/blob/master/wiki/custom_tag_decorators.md">Create your own tag decorators</a></li>
-  <li><a href="https://github.com/inversify/InversifyJS/blob/master/wiki/named_bindings.md">Named bindings</a></li>
-  <li><a href="https://github.com/inversify/InversifyJS/blob/master/wiki/get_all_named_tagged.md">Kernel.getAll<t>(), Kernel.getNamed<t>() &amp; Kernel.getTagged<t>()</t></t></t></a></li>
-  <li><a href="https://github.com/inversify/InversifyJS/blob/master/wiki/hierarchical_di.md">Support for hierarchical DI systems</a></li>
-  <li><a href="https://github.com/inversify/InversifyJS/blob/master/wiki/contextual_bindings.md">Contextual bindings &amp; @targetName</a></li>
-  <li><a href="https://github.com/inversify/InversifyJS/blob/master/wiki/property_injection.md">Property injection</a></li>
-  <li><a href="https://github.com/inversify/InversifyJS/blob/master/wiki/circular_dependencies.md">Circular dependencies</a></li>
-  <li><a href="https://github.com/inversify/InversifyJS/blob/master/wiki/inheritance.md">Inheritance</a></li>
+    <li><a href="https://github.com/inversify/InversifyJS/blob/master/wiki/classes_as_id.md">Support for classes</a></li>
+    <li><a href="https://github.com/inversify/InversifyJS/blob/master/wiki/symbols_as_id.md">Support for Symbols</a></li>
+    <li><a href="https://github.com/inversify/InversifyJS/blob/master/wiki/container_api.md">Container API</a></li>
+    <li><a href="https://github.com/inversify/InversifyJS/blob/master/wiki/container_modules.md">Declaring container modules</a></li>
+    <li><a href="https://github.com/inversify/InversifyJS/blob/master/wiki/container_snapshots.md">Container snapshots</a></li>
+    <li><a href="https://github.com/inversify/InversifyJS/blob/master/wiki/scope.md">Controlling the scope of the dependencies</a></li>
+    <li><a href="https://github.com/inversify/InversifyJS/blob/master/wiki/optional_dependencies.md">Declaring optional dependencies</a></li>
+    <li><a href="https://github.com/inversify/InversifyJS/blob/master/wiki/value_injection.md">Injecting a constant or dynamic value</a></li>
+    <li><a href="https://github.com/inversify/InversifyJS/blob/master/wiki/constructor_injection.md">Injecting a class constructor</a></li>
+    <li><a href="https://github.com/inversify/InversifyJS/blob/master/wiki/factory_injection.md">Injecting a Factory</a></li>
+    <li><a href="https://github.com/inversify/InversifyJS/blob/master/wiki/auto_factory.md">Auto factory</a></li>
+    <li><a href="https://github.com/inversify/InversifyJS/blob/master/wiki/provider_injection.md">Injecting a Provider (asynchronous Factory)</a></li>
+    <li><a href="https://github.com/inversify/InversifyJS/blob/master/wiki/activation_handler.md">Activation handler</a></li>
+    <li><a href="https://github.com/inversify/InversifyJS/blob/master/wiki/middleware.md">Middleware</a></li>
+    <li><a href="https://github.com/inversify/InversifyJS/blob/master/wiki/multi_injection.md">Multi-injection</a></li>
+    <li><a href="https://github.com/inversify/InversifyJS/blob/master/wiki/tagged_bindings.md">Tagged bindings</a></li>
+    <li><a href="https://github.com/inversify/InversifyJS/blob/master/wiki/custom_tag_decorators.md">Create your own tag decorators</a></li>
+    <li><a href="https://github.com/inversify/InversifyJS/blob/master/wiki/named_bindings.md">Named bindings</a></li>
+    <li><a href="https://github.com/inversify/InversifyJS/blob/master/wiki/default_targets.md">Default target</a></li>
+    <li><a href="https://github.com/inversify/InversifyJS/blob/master/wiki/hierarchical_di.md">Support for hierarchical DI systems</a></li>
+    <li><a href="https://github.com/inversify/InversifyJS/blob/master/wiki/contextual_bindings.md">Contextual bindings &amp; @targetName</a></li>
+    <li><a href="https://github.com/inversify/InversifyJS/blob/master/wiki/property_injection.md">Property injection</a></li>
+    <li><a href="https://github.com/inversify/InversifyJS/blob/master/wiki/circular_dependencies.md">Circular dependencies</a></li>
+    <li><a href="https://github.com/inversify/InversifyJS/blob/master/wiki/inheritance.md">Inheritance</a></li>
 </ul>
 
 <p>Please refer to the <a href="https://github.com/inversify/InversifyJS/blob/master/wiki/readme.md">wiki</a> for additional details.</p>
@@ -388,7 +392,7 @@ For example, we have been working on the official InversifyjS development tools 
 
 <h3>License</h3>
 <p>License under the MIT License (MIT)</p>
-<p>Copyright © 2015 <a href="http://www.remojansen.com">Remo H. Jansen</a></p>
+<p>Copyright © 2015 - 2017 <a href="http://www.remojansen.com">Remo H. Jansen</a></p>
 <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
 <p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
 <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.</p>

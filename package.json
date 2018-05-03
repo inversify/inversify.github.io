@@ -27,7 +27,7 @@
   },
   "homepage": "inversify.io",
   "devDependencies": {
-    "browser-sync": "^2.23.5",
+    "browser-sync": "^2.24.3",
     "gulp": "^3.8.11",
     "run-sequence": "^2.0.0"
   }

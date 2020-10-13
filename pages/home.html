@@ -263,7 +263,7 @@ export default container;
 <p>You can use the method <code>get&lt;T&gt;</code> from the <code>Container</code> class to resolve a dependency.
 Remember that you should do this only in your <a href="http://blog.ploeh.dk/2011/07/28/CompositionRoot/">composition root</a>
 to avoid the <a href="http://blog.ploeh.dk/2010/02/03/ServiceLocatorisanAnti-Pattern/">service locator anti-pattern</a>.</p>
-<pre><code class="language-ts">import container = from "./inversify.config";
+<pre><code class="language-ts">import container from "./inversify.config";
 
 var ninja = container.get&lt;Warrior&gt;(TYPES.Warrior);
 

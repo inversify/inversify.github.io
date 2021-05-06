@@ -3,6 +3,8 @@ const { defaultNavbar } = require('./defaults/navbar');
 
 // Locale Imports
 const { enLocale, enMenus } = require('./locales/en');
+const { roLocale, roMenus } = require('./locales/ro');
+const { esLocale, esMenus } = require('./locales/es');
 
 const BASE_URL = 'https://inversify.leonard.sh/';
 
@@ -80,7 +82,9 @@ module.exports = {
 	title: title,
 	description: desc,
 	locales: {
-		...enLocale
+		...enLocale,
+		...roLocale,
+		...esLocale
 	},
 	head: meta,
 	themeConfig: {
@@ -91,7 +95,9 @@ module.exports = {
 		smoothScroll: true,
 		logo: '/logo.png',
 		locales: {
-			...enMenus
+			...enMenus,
+			...roMenus,
+			...esMenus
 		},
 		nav: [...defaultNavbar]
 	},

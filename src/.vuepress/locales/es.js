@@ -5,7 +5,7 @@ const language = 'es';
 const languageUpper = 'ES';
 const languageName = 'Español';
 
-const enLocale = {
+const esLocale = {
 	[`/${language}/`]: {
 		lang: `${language}-${languageUpper}`,
 		title: `Documentación | ${languageName}`
@@ -38,7 +38,7 @@ const sidebar = [
 	}
 ];
 
-const enMenus = {
+const esMenus = {
 	[`/${language}/`]: {
 		label: languageName,
 		nav: [...defaultNavbar],
@@ -51,6 +51,6 @@ const enMenus = {
 };
 
 module.exports = {
-	enLocale,
-	enMenus
+	esLocale,
+	esMenus
 };

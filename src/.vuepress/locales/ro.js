@@ -5,7 +5,7 @@ const language = 'ro';
 const languageUpper = 'ro';
 const languageName = 'Română';
 
-const enLocale = {
+const roLocale = {
 	[`/${language}/`]: {
 		lang: `${language}-${languageUpper}`,
 		title: `Documentație | ${languageName}`
@@ -38,7 +38,7 @@ const sidebar = [
 	}
 ];
 
-const enMenus = {
+const roMenus = {
 	[`/${language}/`]: {
 		label: languageName,
 		nav: [...defaultNavbar],
@@ -51,6 +51,6 @@ const enMenus = {
 };
 
 module.exports = {
-	enLocale,
-	enMenus
+	roLocale,
+	roMenus
 };

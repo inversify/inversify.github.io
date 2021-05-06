@@ -1,34 +1,24 @@
 {
-  "name": "inversify.io",
-  "version": "1.0.0",
-  "description": "InversifyJS official website",
-  "main": "index.html",
-  "scripts": {
-    "test": "echo 'nothing to test'"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/inversify/inversify.github.io.git"
-  },
-  "keywords": [
-    "IoC",
-    "inversify",
-    "inversion",
-    "control",
-    "typescript",
-    "javascript",
-    "dependency",
-    "injection"
-  ],
-  "author": "remojansen <remo.jansen@wolksoftware.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/inversify/inversify.github.io/issues"
-  },
-  "homepage": "inversify.io",
-  "devDependencies": {
-    "browser-sync": "^2.23.5",
-    "gulp": "^4.0.0",
-    "run-sequence": "^2.0.0"
-  }
+	"name": "inversify.github.io",
+	"version": "0.0.1",
+	"description": "",
+	"main": "index.js",
+	"authors": {
+		"name": "",
+		"email": ""
+	},
+	"repository": "/inversify.github.io",
+	"scripts": {
+		"dev": "vuepress dev src",
+		"build": "vuepress build src"
+	},
+	"license": "MIT",
+	"devDependencies": {
+		"@vuepress/plugin-back-to-top": "^1.8.2",
+		"@vuepress/plugin-medium-zoom": "^1.8.2",
+		"glob": "^7.1.6",
+		"vuepress": "^1.5.3",
+		"vuepress-plugin-robots": "^1.0.1",
+		"vuepress-plugin-seo": "^0.1.4"
+	}
 }

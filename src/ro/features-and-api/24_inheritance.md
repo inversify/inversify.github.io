@@ -2,13 +2,17 @@
 
 We try to provide developers with useful error feedback like:
 
-> Error: Missing required @injectable annotation in: SamuraiMaster
+::: danger
+Error: Missing required @injectable annotation in: SamuraiMaster
+:::
 
 This works fine in most cases but it causes some problem when using inheritance.
 
 For example, the following code snippet throws a misleading error:
 
-> The number of constructor arguments in a derived class must be >= than the number of constructor arguments of its base class.
+::: tip
+The number of constructor arguments in a derived class must be >= than the number of constructor arguments of its base class.
+:::
 
 ```ts
 @injectable()
@@ -31,13 +35,16 @@ class SamuraiMaster extends Warrior {
 
 In order to overcome this issues InversifyJS restricts the usage of inheritance with two rules:
 
-> A derived class must explicitly declare its constructor.
-
-> The number of constructor arguments in a derived class must be >= than the number of constructor arguments of its base class.
+::: tip
+A derived class must explicitly declare its constructor.
+The number of constructor arguments in a derived class must be >= than the number of constructor arguments of its base class.
+:::
 
 If you don't follow this rule an exception will be thrown:
 
-> Error: The number of constructor arguments in the derived class SamuraiMaster must be >= than the number of constructor arguments of its base class.
+::: danger
+Error: The number of constructor arguments in the derived class SamuraiMaster must be >= than the number of constructor arguments of its base class.
+:::
 
 The users have a few ways to overcome this limitation available:
 
@@ -244,7 +251,9 @@ This will work, and you'll be able to use your `InjectableDerived` class just li
 In some cases, you may get errors about missing annotations in classes
 provided by a third party module like:
 
-> Error: Missing required @injectable annotation in: SamuraiMaster
+::: danger
+Error: Missing required @injectable annotation in: SamuraiMaster
+:::
 
 You can overcome this problem using the `decorate` function:
 

@@ -1,18 +1,29 @@
 {
 	"name": "inversify.github.io",
-	"version": "0.0.1",
-	"description": "",
-	"main": "index.js",
-	"authors": {
-		"name": "",
-		"email": ""
+	"version": "1.0.0",
+	"description": "InversifyJS official website",
+	"main": "index.html",
+	"homepage": "inversify.io",
+	"keywords": [
+		"IoC",
+		"inversify",
+		"inversion",
+		"control",
+		"typescript",
+		"javascript",
+		"dependency",
+		"injection"
+	],
+	"author": "remojansen <remo.jansen@wolksoftware.com>",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/inversify/inversify.github.io.git"
 	},
-	"repository": "/inversify.github.io",
 	"scripts": {
 		"dev": "vuepress dev src",
 		"build": "vuepress build src"
 	},
-	"license": "MIT",
 	"devDependencies": {
 		"@vuepress/plugin-back-to-top": "^1.8.2",
 		"@vuepress/plugin-medium-zoom": "^1.8.2",

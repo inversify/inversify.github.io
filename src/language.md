@@ -10,12 +10,12 @@ Check out [the support section](./support/) to learn how to contribute.
 
 ## Languages
 
-[English](/en/introduction)
+[English](/en/getting-started)
 
 ## Additional Language Support
 
 Keep in mind that these are community maintained and may not be up to date.
 
-[Română](/ro/introduction)
+[Română](/ro/getting-started)
 
-[Español](/es/introduction)
+[Español](/es/getting-started)

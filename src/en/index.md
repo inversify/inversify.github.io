@@ -5,7 +5,7 @@ heroImage: /logo_transparent.svg
 heroText: InversifyJS
 tagline: A powerful and lightweight inversion of control container for JavaScript & Node.js apps powered by TypeScript.
 actionText: Quick Start →
-actionLink: /en/introduction/
+actionLink: /en/getting-started/
 companies:
     - link: https://opensource.microsoft.com/
       logo: https://avatars0.githubusercontent.com/u/6154722?s=200&v=4

@@ -9,6 +9,10 @@ const defaultNavbar = [
 		]
 	},
 	{
+		text: 'Support',
+		link: '/support/'
+	},
+	{
 		text: 'Discord',
 		link: 'https://discord.gg/jXcMagAPnm'
 	}

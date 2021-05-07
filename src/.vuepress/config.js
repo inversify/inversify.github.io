@@ -83,6 +83,7 @@ module.exports = {
 	description: desc,
 	locales: {
 		...enLocale,
+		// Import all normal locales here.
 		...roLocale,
 		...esLocale
 	},
@@ -96,6 +97,7 @@ module.exports = {
 		logo: '/logo.png',
 		locales: {
 			...enMenus,
+			// Import  all locales for menus here.
 			...roMenus,
 			...esMenus
 		},

@@ -1,9 +1,9 @@
 const { defaultNavbar } = require('../defaults/navbar');
 const { buildSidebar } = require('../utility/sidebarHelper');
 
-const language = 'en';
+const language = 'en'; // ie. /tr/
 const languageUpper = 'US';
-const languageName = 'English';
+const languageName = 'English'; // Turkish
 
 const enLocale = {
 	[`/${language}/`]: {
@@ -42,6 +42,7 @@ const sidebar = [
 	}
 ];
 
+// change this to first two letters + menus. ie. trMenus
 const enMenus = {
 	[`/${language}/`]: {
 		label: languageName,

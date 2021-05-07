@@ -1,6 +1,29 @@
-# inversify.github.io
+## Development / Testing
 
-[![Join the chat at https://gitter.im/inversify/InversifyJS](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/inversify/InversifyJS?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Build Status](https://travis-ci.org/inversify/inversify.github.io.svg?branch=master)](https://travis-ci.org/inversify/inversify.github.io)
+```sh
+$ yarn install
+```
 
-The InversifyJS official website
+```sh
+$ yarn dev
+```
+
+## Creating Translations
+
+We recommend that each individual file you update has its own commit.
+
+This keeps the history for commits clean and easy to track backwards.
+
+### Creating a New Locale / Translation
+
+It's a pretty short process but requires some work.
+
+0. Fork the Repository
+1. Copy `en.js` from `src/.vuepress/locales/en.js`.
+1. Rename it to your two letter [ISO-639-1 Code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes).
+1. Edit the titles and translate them. Follow instructions in the copied code. We left comments for you.
+1. Copy the folder `en` from the `src` directory.
+1. Rename it to your ISO-639-1 Code for your Country / Language.
+1. Begin converting documents from English to your language.
+1. Test locally! It's very important!
+1. Make a pull request.

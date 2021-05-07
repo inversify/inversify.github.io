@@ -33,8 +33,8 @@ The InversifyJS type definitions are included in the inversify npm package. Inve
 InversifyJS requires a modern JavaScript engine with support for:
 
 -   [Reflect metadata](https://github.com/rbuckton/ReflectDecorators/blob/master/spec/metadata.md)
--   [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) (Only required if using [provider injection](../features-and-api/10_provider_injection))
--   [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) (Only required if using [activation handlers](../features-and-api/11_activation_handler))
+-   [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) (Only required if using [provider injection](../features-and-api/10_provider_injection.html))
+-   [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) (Only required if using [activation handlers](../features-and-api/11_activation_handler.html))
 
 If your environment don't support one of these you will need to import a shim or polyfill.
 

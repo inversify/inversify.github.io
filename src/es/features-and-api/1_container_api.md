@@ -130,7 +130,7 @@ expect(gameContainer.get<Katana>(JAPAN_EXPANSION_TYPES.Katana).name).to.eql('Kat
 container.applyCustomMetadataReader(metadataReader: interfaces.MetadataReader): void
 ```
 
-An advanced feature.... See [middleware](../features-and-api/14_middleware).
+An advanced feature.... See [middleware](../features-and-api/14_middleware.html).
 
 ### applyMiddleware
 
@@ -138,7 +138,7 @@ An advanced feature.... See [middleware](../features-and-api/14_middleware).
 container.applyMiddleware(...middleware: interfaces.Middleware[]): void
 ```
 
-An advanced feature that can be used for cross cutting concerns. See [middleware](../features-and-api/14_middleware).
+An advanced feature that can be used for cross cutting concerns. See [middleware](../features-and-api/14_middleware.html).
 
 ### bind
 
@@ -152,7 +152,7 @@ container.bind\<T>(serviceIdentifier: interfaces.ServiceIdentifier\<T>): interfa
 container.createChild(containerOptions?: interfaces.ContainerOptions): Container;
 ```
 
-Create a [container hierarchy ](../features-and-api/20_hierarchical_di). If you do not provide options the child receives the options of the parent.
+Create a [container hierarchy ](../features-and-api/20_hierarchical_di.html). If you do not provide options the child receives the options of the parent.
 
 ### get
 
@@ -603,7 +603,7 @@ expect(container.isBoundTagged(zero, isValidDivisor, true)).to.eql(true);
 container.load(...modules: interfaces.ContainerModule[]): void
 ```
 
-Calls the registration method of each module. See [container modules](../features-and-api/2_container_modules)
+Calls the registration method of each module. See [container modules](../features-and-api/2_container_modules.html)
 
 ### loadAsync
 
@@ -748,7 +748,7 @@ Save the state of the container to be later restored with the restore method.
 container.unbind(serviceIdentifier: interfaces.ServiceIdentifier\<any>): void
 ```
 
-Remove all bindings binded in this container to the service identifer. This will result in the [deactivation process](../features-and-api/12_deactivation_handler).
+Remove all bindings binded in this container to the service identifer. This will result in the [deactivation process](../features-and-api/12_deactivation_handler.html).
 
 ### unbindAsync
 
@@ -765,7 +765,7 @@ If you are not sure then use this method !
 container.unbindAll(): void
 ```
 
-Remove all bindings binded in this container. This will result in the [deactivation process](../features-and-api/12_deactivation_handler).
+Remove all bindings binded in this container. This will result in the [deactivation process](../features-and-api/12_deactivation_handler.html).
 
 ### unbindAllAsync
 
@@ -782,8 +782,8 @@ If you are not sure then use this method !
 container.unload(...modules: interfaces.ContainerModuleBase[]): void
 ```
 
-Removes bindings and handlers added by the modules. This will result in the [deactivation process](../features-and-api/12_deactivation_handler).
-See [container modules](../features-and-api/2_container_modules)
+Removes bindings and handlers added by the modules. This will result in the [deactivation process](../features-and-api/12_deactivation_handler.html).
+See [container modules](../features-and-api/2_container_modules.html)
 
 ### unloadAsync
 

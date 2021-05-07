@@ -6,8 +6,8 @@ The constructor argument for ContainerModule and AsyncContainerModule is a regis
 
 When a container module is loaded into a Container the registration callback is invoked. This is the opportunity for the container module to register bindings and handlers. Use the Container load method for ContainerModule instances and the Container loadAsync method for AsyncContainerModule instances.
 
-When a container module is unloaded from a Container the bindings added by that container will be removed and the [deactivation process](../features-and-api/12_deactivation_handler) will occur for each of them. Container deactivation and [activation handlers](../features-and-api/11_activation_handler) will also be removed.
-Use the unloadAsync method to unload when there will be an async deactivation handler or async [pre destroy](../features-and-api/26_pre_destroy)
+When a container module is unloaded from a Container the bindings added by that container will be removed and the [deactivation process](../features-and-api/12_deactivation_handler.html) will occur for each of them. Container deactivation and [activation handlers](../features-and-api/11_activation_handler.html) will also be removed.
+Use the unloadAsync method to unload when there will be an async deactivation handler or async [pre destroy](../features-and-api/26_pre_destroy.html)
 
 ## Synchronous container modules
 

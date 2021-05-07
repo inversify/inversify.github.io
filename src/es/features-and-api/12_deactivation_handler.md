@@ -24,7 +24,7 @@ It's possible to add a deactivation handler in multiple ways
 
 -   Adding the handler to the container.
 -   Adding the handler to a binding.
--   Adding the handler to the class through the [preDestroy decorator](../features-and-api/26_pre_destroy).
+-   Adding the handler to the class through the [preDestroy decorator](../features-and-api/26_pre_destroy.html).
 
 Handlers added to the container are the first ones to be resolved. Any handler added to a child container is called before the ones added to their parent. Relevant bindings from the container are called next and finally the `preDestroy` method is called. In the example above, relevant bindings are those bindings bound to the unbinded "Destroyable" service identifer.
 

@@ -9,7 +9,7 @@ const defaultSEO = [
 	[
 		'robots',
 		{
-			host: 'https://inversify.leonard.sh/',
+			host: 'https://inversify.io/',
 			allowAll: true,
 			sitemap: '/sitemap.xml'
 		}

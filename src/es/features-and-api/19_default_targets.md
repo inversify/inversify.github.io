@@ -3,9 +3,9 @@
 When multiple bindings are available for a given service identifier, we can use
 one of the following features to resolve the potential `AMBIGUOUS_MATCH` exception:
 
--   [Named bindings](../features-and-api/18_named_bindings)
--   [Tagged bindings](../features-and-api/16_tagged_bindings)
--   [Contextual bindings](../features-and-api/21_contextual_bindings)
+-   [Named bindings](../features-and-api/18_named_bindings.html)
+-   [Tagged bindings](../features-and-api/16_tagged_bindings.html)
+-   [Contextual bindings](../features-and-api/21_contextual_bindings.html)
 -   Default targets
 
 In this section we will explain how to use default targets.

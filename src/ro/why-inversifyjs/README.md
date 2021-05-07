@@ -126,4 +126,4 @@ expects an implementation of `Shuriken` you will get a compilation error.
 We are working hard to provide you with a great IoC container for your JavaScript apps but also a great development experience.
 We have spend a lot of time trying to make the InversifyJS as user friendly as possible and are working on development tools for chrome and we have already developed a logger middleware to help you to debug in Node.js.
 
-![](http://inversify.io/img/devtools1.png)
+![](http://inversify.io/devtools1.png)

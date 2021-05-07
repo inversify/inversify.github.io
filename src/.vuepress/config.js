@@ -6,7 +6,7 @@ const { enLocale, enMenus } = require('./locales/en');
 const { roLocale, roMenus } = require('./locales/ro');
 const { esLocale, esMenus } = require('./locales/es');
 
-const BASE_URL = 'https://inversify.leonard.sh/';
+const BASE_URL = 'https://inversify.io/';
 
 const title = 'InversifyJS a powerful IoC container for JavaScript apps powered by TypeScript';
 const desc = 'InversifyJS is a lightweight inversion of control (IoC) container for TypeScript and JavaScript apps.';

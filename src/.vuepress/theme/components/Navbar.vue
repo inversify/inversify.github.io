@@ -9,12 +9,13 @@
 				:src="$withBase($site.themeConfig.logo)"
 				:alt="$siteTitle"
 			/>
+
 			<span
-				v-if="data.title !== null"
+				v-if="$title !== null || data.title !== null"
 				ref="siteName"
 				class="site-name"
 				:class="{ 'can-hide': $site.themeConfig.logo }"
-				>{{ data.title }}</span
+				>{{ data.title || $title.slice(0, $title.indexOf('|')) }}</span
 			>
 		</RouterLink>
 
@@ -65,6 +66,7 @@ export default {
 		isAlgoliaSearch() {
 			return this.algolia && this.algolia.apiKey && this.algolia.indexName;
 		},
+
 		data() {
 			return this.$page.frontmatter;
 		}

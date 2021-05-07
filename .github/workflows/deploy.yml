@@ -1,0 +1,33 @@
+name: Deploy
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: ''
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14
+
+      - name: Install Yarn Packages
+        run: yarn install
+
+      - name: Build VUE Files
+        run: yarn build
+
+      - name: Copy CNAME
+        run: cp ./CNAME ./src/.vuepress/dist/CNAME
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@4.1.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages # The branch the action should deploy to.
+          folder: src/.vuepress/dist # The folder the action should deploy.

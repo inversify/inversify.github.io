@@ -86,6 +86,19 @@ features:
     - title: Pluggable
       details: Inversifyjs is framework-agnostic and has been designed to in a way that makes possible its integration with popular frameworks and libraries like hapi, express, react or backbone.
 
+testimonies:
+    - author: Nate Kohari
+      author_link: https://twitter.com/nkohari
+      author_of_link: https://github.com/ninject/Ninject
+      author_of_name: Ninject
+      text: "Nice work! I've taken a couple shots at creating DI frameworks for JavaScript and TypeScript, but the lack of RTTI really hinders things. The ES7 metadata gets us part of the way there (as you've discovered). Keep up the great work!"
+
+    - author: Michel Weststrat
+      author_link: https://twitter.com/mweststrate
+      author_of_link: https://github.com//mobxjs/mobx
+      author_of_name: MobX
+      text: 'Dependency injection like InversifyJS works nicely'
+
 footer: Released under the MIT License
 copyright: Copyright © 2015 - present Remo H. Jansen
 ---

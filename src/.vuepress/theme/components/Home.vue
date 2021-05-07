@@ -37,6 +37,26 @@
 			</div>
 		</div>
 
+		<div class="testimonies">
+			<h3>Testimonies</h3>
+
+			<div class="inner">
+				<hr />
+				<div v-if="data.testimonies && data.testimonies.length" class="testimonies">
+					<div v-for="(testimony, index) in data.testimonies" :key="index" class="testimony">
+						<p>
+							<strong>
+								<a :href="testimony.author_link">{{ testimony.author }}</a>
+							</strong>
+
+							- Author of <a :href="testimony.author_of_link">{{ testimony.author_of_name }}</a>
+						</p>
+						<blockquote>"{{ testimony.text }}"</blockquote>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<div v-if="data.footer" class="footer">
 			{{ data.footer }}
 
@@ -146,6 +166,20 @@ export default {
         &:hover
           opacity 1
           filter none
+
+  .testimonies
+    .inner
+      max-width 700px
+      margin 0px auto
+
+    text-align center
+    padding 1.5rem
+
+    .testimony
+      text-align left
+      padding 0.5rem
+      blockquote
+        font-style italic
 
 .features {
     max-width: 69%;

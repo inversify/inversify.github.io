@@ -30,6 +30,10 @@ const sidebar = [
 				children: buildSidebar(`/${language}/getting-started/`)
 			},
 			{
+				collapsable: false,
+				children: buildSidebar(`/${language}/ecosystem/`)
+			},
+			{
 				title: 'Features and API',
 				collapsable: false,
 				children: buildSidebar(`/${language}/features-and-api/`)

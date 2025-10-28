@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunk_inversifyjs_inversify_docs_site=self.webpackChunk_inversifyjs_inversify_docs_site||[]).push([["1833"],{4608:function(s,e,i){i.r(e),i.d(e,{DocSearchModal:()=>c.a1});var c=i(8686)}}]);

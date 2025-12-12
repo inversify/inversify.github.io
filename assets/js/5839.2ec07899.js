@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_inversifyjs_inversify_docs_site=self.webpackChunk_inversifyjs_inversify_docs_site||[]).push([["5839"],{32978:function(e,s,i){i.d(s,{createPieServices:()=>c.f});var c=i(13165);i(15965)}}]);

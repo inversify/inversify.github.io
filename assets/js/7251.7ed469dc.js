@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_inversifyjs_inversify_docs_site=self.webpackChunk_inversifyjs_inversify_docs_site||[]).push([["7251"],{75011:function(s,e,i){i.d(e,{createInfoServices:()=>n.v});var n=i(77698);i(15965)}}]);

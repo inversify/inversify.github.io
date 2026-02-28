@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_inversifyjs_inversify_docs_site=self.webpackChunk_inversifyjs_inversify_docs_site||[]).push([["557"],{42444(s,e,i){i.d(e,{createGitGraphServices:()=>r.b});var r=i(97065);i(4228)}}]);

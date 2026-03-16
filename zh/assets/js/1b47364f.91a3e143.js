@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunk_inversifyjs_inversify_docs_site=self.webpackChunk_inversifyjs_inversify_docs_site||[]).push([["3569"],{25845(s){s.exports=JSON.parse('{"tags":[{"label":"Releases","permalink":"/zh/blog/tags/releases","description":"InversifyJS releases related posts","count":7}]}')}}]);

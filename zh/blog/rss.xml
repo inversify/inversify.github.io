@@ -4,10 +4,66 @@
         <title>InversifyJS Blog</title>
         <link>https://inversify.github.io/zh/blog/</link>
         <description>InversifyJS Blog</description>
-        <lastBuildDate>Sun, 01 Mar 2026 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 16 Mar 2026 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>zh</language>
+        <item>
+            <title><![CDATA[Announcing InversifyJS 8.0.0]]></title>
+            <link>https://inversify.github.io/zh/blog/announcing-inversify-8-0-0/</link>
+            <guid>https://inversify.github.io/zh/blog/announcing-inversify-8-0-0/</guid>
+            <pubDate>Mon, 16 Mar 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[We're thrilled to announce the stable release of InversifyJS 8.0.0! This release delivers on the promises laid out in our planning post, bringing consistent naming conventions, improved type safety, a leaner API surface, and a full move to ES modules. The package is available today on npm.]]></description>
+            <content:encoded><![CDATA[<p>We're thrilled to announce the stable release of <strong>InversifyJS 8.0.0</strong>! This release delivers on the promises laid out in our <a class="" href="https://inversify.github.io/zh/blog/planning-inversify-8-0-0/">planning post</a>, bringing consistent naming conventions, improved type safety, a leaner API surface, and a full move to ES modules. The package is available today on npm.</p>
+<!-- -->
+<h2 class="anchor anchorTargetStickyNavbar_rXVX" id="consistent-naming-conventions">Consistent Naming Conventions<a href="https://inversify.github.io/zh/blog/announcing-inversify-8-0-0/#consistent-naming-conventions" class="hash-link" aria-label="Consistent Naming Conventions的直接链接" title="Consistent Naming Conventions的直接链接" translate="no">​</a></h2>
+<p>This is the most impactful change for existing codebases, and it's worth explaining the history that led to it.</p>
+<h3 class="anchor anchorTargetStickyNavbar_rXVX" id="how-we-got-here">How we got here<a href="https://inversify.github.io/zh/blog/announcing-inversify-8-0-0/#how-we-got-here" class="hash-link" aria-label="How we got here的直接链接" title="How we got here的直接链接" translate="no">​</a></h3>
+<p>InversifyJS 6 followed a clear convention:</p>
+<ul>
+<li class="">Unqualified name → synchronous (<code>load</code>, <code>unbind</code>, …)</li>
+<li class=""><code>Async</code> suffix → asynchronous (<code>loadAsync</code>, <code>unbindAsync</code>, …)</li>
+</ul>
+<p>When InversifyJS 7 was designed, several methods that had been synchronous in v6 — <code>load</code>, <code>unbind</code>, <code>unbindAll</code>, <code>unload</code>, and <code>rebind</code> — were mistakenly made asynchronous under the same unqualified names. This was a breaking change that caught many users off guard: code that had been calling <code>container.load(module)</code> synchronously suddenly needed to be awaited.</p>
+<p>Rather than introduce another breaking change mid-major to revert the rename, the v7.x series addressed this by introducing <code>Sync</code>-suffixed variants (<code>loadSync</code>, <code>unbindSync</code>, …) alongside the existing async names. This preserved backwards compatibility at the cost of an inconsistent API: some operations had a <code>Sync</code> suffix to signal synchronous behavior, others had an <code>Async</code> suffix, and the unqualified names meant different things for different methods.</p>
+<h3 class="anchor anchorTargetStickyNavbar_rXVX" id="what-changes-in-8">What changes in 8<a href="https://inversify.github.io/zh/blog/announcing-inversify-8-0-0/#what-changes-in-8" class="hash-link" aria-label="What changes in 8的直接链接" title="What changes in 8的直接链接" translate="no">​</a></h3>
+<p>InversifyJS 8 returns to the original convention and applies it consistently across the whole public API:</p>
+<table><thead><tr><th>InversifyJS 7</th><th>InversifyJS 8</th></tr></thead><tbody><tr><td><code>Container.load</code> <em>(async)</em></td><td><code>Container.loadAsync</code></td></tr><tr><td><code>Container.loadSync</code></td><td><code>Container.load</code></td></tr><tr><td><code>Container.unload</code> <em>(async)</em></td><td><code>Container.unloadAsync</code></td></tr><tr><td><code>Container.unloadSync</code></td><td><code>Container.unload</code></td></tr><tr><td><code>Container.unbind</code> <em>(async)</em></td><td><code>Container.unbindAsync</code></td></tr><tr><td><code>Container.unbindSync</code></td><td><code>Container.unbind</code></td></tr><tr><td><code>Container.unbindAll</code> <em>(async)</em></td><td><code>Container.unbindAllAsync</code></td></tr><tr><td><code>Container.unbindAllSync</code></td><td><code>Container.unbindAll</code></td></tr><tr><td><code>Container.rebind</code> <em>(async)</em></td><td><code>Container.rebindAsync</code></td></tr><tr><td><code>Container.rebindSync</code></td><td><code>Container.rebind</code></td></tr><tr><td><code>ContainerModuleLoadOptions.unbind</code> <em>(async)</em></td><td><code>ContainerModuleLoadOptions.unbindAsync</code></td></tr><tr><td><code>ContainerModuleLoadOptions.unbindSync</code></td><td><code>ContainerModuleLoadOptions.unbind</code></td></tr><tr><td><code>ContainerModuleLoadOptions.rebind</code> <em>(async)</em></td><td><code>ContainerModuleLoadOptions.rebindAsync</code></td></tr><tr><td><code>ContainerModuleLoadOptions.rebindSync</code></td><td><code>ContainerModuleLoadOptions.rebind</code></td></tr></tbody></table>
+<p>The rule is simple: if an operation has both synchronous and asynchronous variants, the <strong>unqualified name is synchronous</strong> and the <strong><code>Async</code> suffix marks the asynchronous variant</strong>. This matches how the wider JavaScript ecosystem names things and is consistent with how InversifyJS 6 worked.</p>
+<p>Updating your code is purely mechanical — a project-wide find-and-replace covering the names above is all that is needed.</p>
+<h2 class="anchor anchorTargetStickyNavbar_rXVX" id="improved-type-safety-for-serviceidentifier">Improved Type Safety for ServiceIdentifier<a href="https://inversify.github.io/zh/blog/announcing-inversify-8-0-0/#improved-type-safety-for-serviceidentifier" class="hash-link" aria-label="Improved Type Safety for ServiceIdentifier的直接链接" title="Improved Type Safety for ServiceIdentifier的直接链接" translate="no">​</a></h2>
+<p><code>ServiceIdentifier&lt;T&gt;</code> no longer accepts an arbitrary <code>Function</code>. A <code>Function</code> is now only a valid <code>ServiceIdentifier&lt;T&gt;</code> if it satisfies <code>AbstractNewable&lt;T&gt; | Newable&lt;T&gt;</code>.</p>
+<p>In practice this means using a class directly as a service identifier (the most common pattern) continues to work exactly as before. The only scenario that is affected is using a class with protected or private constructors as a service identifier — in those cases you should switch to a <code>Symbol</code> identifier instead.</p>
+<p>This narrows a type escape hatch that could hide real mistakes and makes service identifier mismatches detectable at compile time rather than at runtime.</p>
+<h2 class="anchor anchorTargetStickyNavbar_rXVX" id="esm-only">ESM Only<a href="https://inversify.github.io/zh/blog/announcing-inversify-8-0-0/#esm-only" class="hash-link" aria-label="ESM Only的直接链接" title="ESM Only的直接链接" translate="no">​</a></h2>
+<p>InversifyJS 8 ships as an <strong>ES module only</strong> package and no longer provides a CommonJS build.</p>
+<h3 class="anchor anchorTargetStickyNavbar_rXVX" id="why-now">Why now?<a href="https://inversify.github.io/zh/blog/announcing-inversify-8-0-0/#why-now" class="hash-link" aria-label="Why now?的直接链接" title="Why now?的直接链接" translate="no">​</a></h3>
+<p>The main historical blocker for ESM-only packages was that <code>require()</code> could not load an ES module, forcing many packages to maintain dual CJS/ESM builds. That blocker is essentially gone:</p>
+<ul>
+<li class="">Node.js versions with <code>require(esm)</code> enabled by default (Node.js 20.19.0 and later, or any Node.js 22+ release) support loading ES modules via <code>require()</code> from CommonJS files without any extra flags.</li>
+<li class="">Node.js 18 reached end-of-life in April 2025 and does not include <code>require(esm)</code> support.</li>
+<li class="">All major browsers, Deno, and Bun have supported ES modules natively for years.</li>
+</ul>
+<p>The e18e community has been <a href="https://e18e.dev/blog/migrating-the-ecosystem-to-esm.html" target="_blank" rel="noopener noreferrer" class="">driving the ecosystem-wide migration to ES modules</a> and many high-profile packages — <code>chai</code>, <code>vueuse</code>, numerous ESLint plugins, and others — have already made the switch. InversifyJS 8 joins that movement.</p>
+<h3 class="anchor anchorTargetStickyNavbar_rXVX" id="what-this-means-for-you">What this means for you<a href="https://inversify.github.io/zh/blog/announcing-inversify-8-0-0/#what-this-means-for-you" class="hash-link" aria-label="What this means for you的直接链接" title="What this means for you的直接链接" translate="no">​</a></h3>
+<p>If you are on a Node.js version <strong>with <code>require(esm)</code> enabled by default</strong> (Node.js 20.19.0+ or Node.js 22+), nothing changes on the consumption side — <code>require('inversify')</code> will continue to work thanks to <code>require(esm)</code>.</p>
+<p>If you are on Node.js <strong>18 or earlier</strong>, you have two options:</p>
+<ol>
+<li class="">Upgrade Node.js — this is the recommended path.</li>
+<li class="">Replace any synchronous <code>require('inversify')</code> calls with dynamic <code>import('inversify')</code> where an async boundary is acceptable.</li>
+</ol>
+<p>If you are using a bundler (webpack, Rollup, Vite, esbuild, …) you are unaffected — all of them handle ESM packages correctly regardless of your target environment.</p>
+<h2 class="anchor anchorTargetStickyNavbar_rXVX" id="removed-provider-and-providerbinding">Removed: Provider and ProviderBinding<a href="https://inversify.github.io/zh/blog/announcing-inversify-8-0-0/#removed-provider-and-providerbinding" class="hash-link" aria-label="Removed: Provider and ProviderBinding的直接链接" title="Removed: Provider and ProviderBinding的直接链接" translate="no">​</a></h2>
+<p><code>Provider</code> and <code>ProviderBinding</code> have been removed. The <code>Factory</code> pattern introduced in InversifyJS 7 covers all use cases that <code>Provider</code> handled with greater flexibility and a cleaner API. Migrate any <code>Provider</code> bindings to <code>Factory</code>.</p>
+<h2 class="anchor anchorTargetStickyNavbar_rXVX" id="getting-started">Getting Started<a href="https://inversify.github.io/zh/blog/announcing-inversify-8-0-0/#getting-started" class="hash-link" aria-label="Getting Started的直接链接" title="Getting Started的直接链接" translate="no">​</a></h2>
+<div class="language-bash codeBlockContainer_vg2U theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_UJ0N"><pre tabindex="0" class="prism-code language-bash codeBlock_MBpK thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_mLry"><span class="token-line" style="color:#393A34"><span class="token plain">npm install inversify@8.0.0</span><br></span></code></pre></div></div>
+<div class="language-bash codeBlockContainer_vg2U theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_UJ0N"><pre tabindex="0" class="prism-code language-bash codeBlock_MBpK thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_mLry"><span class="token-line" style="color:#393A34"><span class="token plain">pnpm add inversify@8.0.0</span><br></span></code></pre></div></div>
+<div class="language-bash codeBlockContainer_vg2U theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_UJ0N"><pre tabindex="0" class="prism-code language-bash codeBlock_MBpK thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_mLry"><span class="token-line" style="color:#393A34"><span class="token plain">yarn add inversify@8.0.0</span><br></span></code></pre></div></div>
+<h2 class="anchor anchorTargetStickyNavbar_rXVX" id="thank-you">Thank You<a href="https://inversify.github.io/zh/blog/announcing-inversify-8-0-0/#thank-you" class="hash-link" aria-label="Thank You的直接链接" title="Thank You的直接链接" translate="no">​</a></h2>
+<p>A huge thank you to everyone who tested the beta and provided feedback — your reports and suggestions directly shaped the quality of this release. We're excited to see what you build with InversifyJS 8!</p>
+<p>If you encounter any issues, please open an issue on the <a href="https://github.com/inversify/monorepo" target="_blank" rel="noopener noreferrer" class="">InversifyJS monorepo</a>.</p>]]></content:encoded>
+            <category>Releases</category>
+        </item>
         <item>
             <title><![CDATA[Announcing InversifyJS 8.0.0-beta.0]]></title>
             <link>https://inversify.github.io/zh/blog/announcing-inversify-8-0-0-beta-0/</link>

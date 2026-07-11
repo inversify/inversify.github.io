@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_inversifyjs_inversify_docs_site=self.webpackChunk_inversifyjs_inversify_docs_site||[]).push([["5007"],{51858(e,s,i){i.d(s,{createTreemapServices:()=>r.d});var r=i(37714);i(42245)}}]);

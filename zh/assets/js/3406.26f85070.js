@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_inversifyjs_inversify_docs_site=self.webpackChunk_inversifyjs_inversify_docs_site||[]).push([["3406"],{22573(e,s,i){i.d(s,{createCynefinServices:()=>n.t});var n=i(80585);i(52837)}}]);

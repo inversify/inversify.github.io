@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_inversifyjs_inversify_docs_site=self.webpackChunk_inversifyjs_inversify_docs_site||[]).push([["2287"],{51378(s,e,i){i.d(e,{createRailroadServices:()=>r.l});var r=i(28360);i(52837)}}]);

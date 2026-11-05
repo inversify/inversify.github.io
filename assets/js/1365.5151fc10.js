@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunk_inversifyjs_inversify_docs_site=self.webpackChunk_inversifyjs_inversify_docs_site||[]).push([["1365"],{30420(e,s,i){i.d(s,{createPacketServices:()=>c.$});var c=i(26116);i(42245)}}]);

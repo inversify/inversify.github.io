@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_inversifyjs_inversify_docs_site=self.webpackChunk_inversifyjs_inversify_docs_site||[]).push([["9602"],{62585(e,s,i){i.d(s,{createTreeViewServices:()=>r.I});var r=i(67440);i(52837)}}]);

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_inversifyjs_inversify_docs_site=self.webpackChunk_inversifyjs_inversify_docs_site||[]).push([["2893"],{4204(e,s,i){i.d(s,{createEventModelingServices:()=>n.g});var n=i(59577);i(52837)}}]);

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_inversifyjs_inversify_docs_site=self.webpackChunk_inversifyjs_inversify_docs_site||[]).push([["8890"],{70753(e,s,i){i.d(s,{createWardleyServices:()=>r.J});var r=i(76581);i(52837)}}]);
